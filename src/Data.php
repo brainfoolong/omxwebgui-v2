@@ -20,6 +20,7 @@ class Data
             return $data[$key];
         }
     }
+
     /**
      * Set a specific data value for the given key
      * @param string $file

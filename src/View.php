@@ -11,7 +11,7 @@ abstract class View
      * The root url of this application
      * @var string
      */
-    static $rootUrl;
+    public static $rootUrl;
 
     /**
      * Generate a link to the given view
@@ -20,7 +20,7 @@ abstract class View
      */
     public static function link($view)
     {
-        return View::$rootUrl . "/index.php/" . $view;
+        return View::$rootUrl . "/index.php/" . strtolower($view);
     }
 
     /**
@@ -41,7 +41,7 @@ abstract class View
             <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/bootstrap-select.min.css">
             <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/page.css">
-            <link rel="shortcut icon" href="<?= View::$rootUrl ?>/images/favicon.ico" type="image/icon" />
+            <link rel="shortcut icon" href="<?= View::$rootUrl ?>/images/favicon.ico" type="image/icon"/>
             <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/jquery-3.1.1.min.js"></script>
             <title>Omx Web Gui by BrainFooLong</title>
         </head>
@@ -55,10 +55,10 @@ abstract class View
                         <div><img src="<?= View::$rootUrl ?>/images/logo.png"></div>
                     </li>
                     <li>
-                        <a href="index.php">Playlist</a>
+                        <a href="<?=View::link("index")?>">Playlist</a>
                     </li>
                     <li>
-                        <a href="settings.php">Settings</a>
+                        <a href="<?=View::link("settings")?>">Settings</a>
                     </li>
                     <li>
                         <a href="https://github.com/brainfoolong/omxwebgui" target="_blank">Github</a>
@@ -82,9 +82,12 @@ abstract class View
                                 <div class="bounce2"></div>
                                 <div class="bounce3"></div>
                             </div>
-                            <div class="page-content hidden">
+                            <div class="page-content">
                                 <?= $this->getContent() ?>
                             </div>
+                            <script type="text/javascript">
+                                $(".page-content").addClass("hidden");
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -96,7 +99,7 @@ abstract class View
         <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/page.js"></script>
         </body>
         </html>
-        <?
+        <?php
     }
 
     /**

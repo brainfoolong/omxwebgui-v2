@@ -1,4 +1,62 @@
 <?php
+
+namespace {
+
+    use Nullix\Omxwebgui\Data;
+    use Nullix\Omxwebgui\Translation;
+
+    /**
+     * Get a post value
+     * @param string $key
+     * @return mixed
+     */
+    function post($key)
+    {
+        return isset($_POST[$key]) ? $_POST[$key] : null;
+    }
+
+    /**
+     * Get a get value
+     * @param string $key
+     * @return mixed
+     */
+    function get($key)
+    {
+        return isset($_GET[$key]) ? $_GET[$key] : null;
+    }
+
+    /**
+     * Get a translation key
+     * @param string $key
+     * @param mixed $parameters Parameters to replace
+     * @return mixed
+     */
+    function t($key, $parameters)
+    {
+        $lang = Data::getKey("settings", "language");
+        if (!$lang) {
+            $lang = "en";
+        }
+
+        $value = null;
+        if (isset(Translation::$values[$lang][$key])) {
+            $value = Translation::$values[$lang][$key];
+        } else {
+            if (isset(Translation::$values["en"][$key])) {
+                $value = Translation::$values[$lang][$key];
+            } else {
+                $value = $key;
+            }
+        }
+        if (is_array($parameters)) {
+            foreach ($parameters as $key => $v) {
+                $value = str_replace('{' . $key . '}', $v, $value);
+            }
+        }
+        return $value;
+    }
+}
+
 namespace Nullix\Omxwebgui {
 
     /**
@@ -59,62 +117,5 @@ namespace Nullix\Omxwebgui {
                 }
             });
         }
-    }
-}
-
-namespace {
-
-    use Nullix\Omxwebgui\Data;
-    use Nullix\Omxwebgui\Translation;
-
-    /**
-     * Get a post value
-     * @param string $key
-     * @return mixed
-     */
-    function post($key)
-    {
-        return isset($_POST[$key]) ? $_POST[$key] : null;
-    }
-
-    /**
-     * Get a get value
-     * @param string $key
-     * @return mixed
-     */
-    function get($key)
-    {
-        return isset($_GET[$key]) ? $_GET[$key] : null;
-    }
-
-    /**
-     * Get a translation key
-     * @param string $key
-     * @param mixed $parameters Parameters to replace
-     * @return mixed
-     */
-    function t($key, $parameters)
-    {
-        $lang = Data::getKey("settings", "language");
-        if (!$lang) {
-            $lang = "en";
-        }
-
-        $value = null;
-        if (isset(Translation::$values[$lang][$key])) {
-            $value = Translation::$values[$lang][$key];
-        } else {
-            if (isset(Translation::$values["en"][$key])) {
-                $value = Translation::$values[$lang][$key];
-            } else {
-                $value = $key;
-            }
-        }
-        if (is_array($parameters)) {
-            foreach ($parameters as $key => $v) {
-                $value = str_replace('{' . $key . '}', $v, $value);
-            }
-        }
-        return $value;
     }
 }

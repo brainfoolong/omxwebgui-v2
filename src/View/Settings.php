@@ -153,6 +153,6 @@ class Settings extends View
                 });
             });
         </script>
-        <?
+        <?php
     }
 }

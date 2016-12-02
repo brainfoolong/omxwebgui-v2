@@ -5,13 +5,14 @@ namespace Nullix\Omxwebgui;
  * Class Translation
  * @package Nullix\Omxwebgui
  */
-class Translation{
+class Translation
+{
 
     /**
      * All translation values
      * @var array
      */
-    static $values = [
+    public static $values = [
         "en" => [
 
         ],

@@ -16,6 +16,6 @@ class Index extends View
     {
         ?>
         <h1>Fancy Toggle Sidebar Navigation</h1>
-        <?
+        <?php
     }
 }
