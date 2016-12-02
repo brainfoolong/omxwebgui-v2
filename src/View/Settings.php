@@ -11,6 +11,12 @@ use Nullix\Omxwebgui\View;
 class Settings extends View
 {
     /**
+     * Default file formats
+     * @var string
+     */
+    public static $defaultFileFormats = "mp4|mkv|mpg|avi|mpeg|mp3|ogg";
+
+    /**
      * Get content for the page
      */
     public function getContent()
@@ -47,7 +53,9 @@ class Settings extends View
         <form name="settings" method="post" action="">
             <div class="title">
                 <strong>Media folders and files</strong>
-                <small>Point to folders with your media files or directly to a single media file</small>
+                <small>Point to folders with your media files or directly to a single media file. You can also add URL's
+                    to direct-streams or online files (rtmp://, rtstp://, http://).
+                </small>
             </div>
             <div class="row">
                 <div class="col-xs-6">
@@ -81,7 +89,16 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
-                <strong>Double speed fix</strong>
+                <strong>File formats</strong>
+                <small>You can modify the file formats that will be available for the playlist.</small>
+            </div>
+            <div class="spacer">
+                <input type="text" placeholder="Default: <?= self::$defaultFileFormats ?>" name="setting[file_formats]"
+                       class="form-control">
+            </div>
+
+            <div class="title spacer">
+                <strong>Double speed and no audio fix</strong>
                 <small>Activate this if you have troubles with videos starting at double speed and without
                     audio
                 </small>
@@ -92,6 +109,30 @@ class Settings extends View
                     <option value="1">Enabled</option>
                 </select>
             </div>
+
+            <div class="title spacer">
+                <strong>Audio out device</strong>
+            </div>
+            <div class="spacer">
+                <select class="selectpicker" name="setting[audioout]">
+                    <option value="hdmi">HDMI</option>
+                    <option value="local">Local</option>
+                </select>
+            </div>
+
+            <div class="title spacer">
+                <strong>Initial Volume</strong>
+            </div>
+            <div class="spacer">
+                <select class="selectpicker" name="setting[initvol]">
+                    <?php
+                    for ($i = 0; $i >= -30; $i -= 3) {
+                        echo '<option value="' . $i . '">' . $i . ' dB</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+
             <div class="title spacer">
                 <strong>Language</strong>
                 <small>Change language for the interface</small>
@@ -104,55 +145,6 @@ class Settings extends View
             </div>
             <input type="submit" value="Save" name="save" class="btn btn-default btn-info">
         </form>
-        <script type="text/javascript">
-            $(function () {
-                var baseRow = $(".folders .row.hidden");
-                var createFolderRow = function (values) {
-                    baseRow.find("select").selectpicker("destroy");
-                    var clone = baseRow.clone();
-                    clone.removeClass("hidden");
-                    if (values) {
-                        clone.find("[name='folder[]']").val(values.folder);
-                        clone.find("[name='folder_recursive[]']").val(values.recursive);
-                    }
-                    $(".folders").append(clone);
-                    clone.find("select").selectpicker();
-                };
-                // set all folders
-                (function () {
-                    var values = <?=json_encode(Data::get("folders"))?>;
-                    if (values && values.length) {
-                        for (var i in values) {
-                            createFolderRow(values[i]);
-                        }
-                    } else {
-                        createFolderRow();
-                    }
-                })();
-                // set all setting values
-                (function () {
-                    var values = <?=json_encode(Data::get("settings"))?>;
-                    if (values) {
-                        for (var i in values) {
-                            var f = $("form").find("[name='setting[" + i + "]']");
-                            if (f.hasClass("selectpicker")) {
-                                f.selectpicker("val", values[i]);
-                            } else {
-                                f.val(values[i]);
-                            }
-                        }
-                    }
-                })();
-                $("form").on("click", ".add-folder", function () {
-                    createFolderRow();
-                }).on("click", ".delete-folder", function () {
-                    $(this).closest(".row").remove();
-                    if ($("form .folders .row").not(".hidden").length == 0) {
-                        createFolderRow();
-                    }
-                });
-            });
-        </script>
         <?php
     }
 }

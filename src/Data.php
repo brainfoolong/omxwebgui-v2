@@ -32,7 +32,7 @@ class Data
     {
         $data = self::get($file);
         $data[$key] = $value;
-        return self::set($file, $value);
+        return self::set($file, $data);
     }
 
     /**
@@ -65,12 +65,18 @@ class Data
         if (file_exists($path) && !is_writable($path)) {
             throw new \Exception("'$path' file is not writeable");
         }
+        // delete file if null is given
+        if ($value === null) {
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            return;
+        }
         // if a mutex file exist (other write progress not finished) than just wait a second
         // every write progress should not last longer than 1 second
         // we do not save such huge files to disk
         $mutex = $path . ".mutex";
         if (file_exists($mutex) && filemtime($mutex) > time() - 1) {
-            echo "need to wait";
             sleep(1);
             // delete mutex file anyway
             unlink($mutex);

@@ -31,7 +31,7 @@ namespace {
      * @param mixed $parameters Parameters to replace
      * @return mixed
      */
-    function t($key, $parameters)
+    function t($key, $parameters = null)
     {
         $lang = Data::getKey("settings", "language");
         if (!$lang) {
@@ -65,6 +65,12 @@ namespace Nullix\Omxwebgui {
      */
     class Core
     {
+
+        /**
+         * The current version
+         * @var string
+         */
+        public static $version = "0.9.0";
 
         /**
          * Initialize

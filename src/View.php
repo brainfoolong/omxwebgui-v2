@@ -26,7 +26,7 @@ abstract class View
     /**
      * Just load the layout
      */
-    final public function load()
+    public function load()
     {
         header("Content-Type: text/html; charset=UTF-8");
         ?>
@@ -43,22 +43,45 @@ abstract class View
             <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/page.css">
             <link rel="shortcut icon" href="<?= View::$rootUrl ?>/images/favicon.ico" type="image/icon"/>
             <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/jquery-3.1.1.min.js"></script>
+            <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/global.js"></script>
+            <?php
+            // check if an extra script file for current view exist, if yes include it
+            $class = strtolower(basename(str_replace("\\", "/", get_class($this))));
+            $path = __DIR__ . "/../scripts/view/$class.js";
+            if (file_exists($path)) {
+                $url = View::$rootUrl . '/scripts/view/' . $class . ".js";
+                echo '<script type="text/javascript" src="' . $url . '"></script>';
+            }
+            ?>
             <title>Omx Web Gui by BrainFooLong</title>
+            <script type="text/javascript">
+                owg.translations = <?=json_encode(Translation::$values)?>;
+                owg.language = '<?=Data::getKey("setting", "language")?>';
+                if (owg.language == '') owg.language = "en";
+                owg.rootUrl = '<?=View::$rootUrl?>';
+                owg.folders = <?=json_encode(Data::get("folders"))?>;
+                owg.settings = <?=json_encode(Data::get("settings"))?>;
+            </script>
         </head>
         <body>
 
         <div id="wrapper">
             <div class="overlay"></div>
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="sidebar-brand">
                         <div><img src="<?= View::$rootUrl ?>/images/logo.png"></div>
                     </li>
                     <li>
-                        <a href="<?=View::link("index")?>">Playlist</a>
+                        <a href="<?= View::link("index") ?>">Playlist</a>
                     </li>
                     <li>
-                        <a href="<?=View::link("settings")?>">Settings</a>
+                        <a href="<?= View::link("settings") ?>">Settings</a>
                     </li>
                     <li>
                         <a href="https://github.com/brainfoolong/omxwebgui" target="_blank">Github</a>
@@ -69,23 +92,19 @@ abstract class View
                 </ul>
             </nav>
             <div id="page-content-wrapper">
-                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                    <span class="hamb-top"></span>
-                    <span class="hamb-middle"></span>
-                    <span class="hamb-bottom"></span>
-                </button>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2">
-                            <div class="spinner">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
+                            <div class="spinner-container"></div>
                             <div class="page-content">
+                                <a class="top-logo" href="https://github.com/brainfoolong/omxwebgui" target="_blank">
+                                    <strong>OMXWEBGUI</strong>
+                                    <small>by BrainFooLong</small>
+                                </a>
                                 <?= $this->getContent() ?>
                             </div>
                             <script type="text/javascript">
+                                spinner(".spinner-container");
                                 $(".page-content").addClass("hidden");
                             </script>
                         </div>
@@ -96,7 +115,6 @@ abstract class View
 
         <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/bootstrap.min.js"></script>
         <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/bootstrap-select.min.js"></script>
-        <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/page.js"></script>
         </body>
         </html>
         <?php
