@@ -3,19 +3,23 @@ namespace Nullix\Omxwebgui;
 
 /**
  * Class View
+ *
  * @package Nullix\Omxwebgui
  */
 abstract class View
 {
     /**
      * The root url of this application
+     *
      * @var string
      */
     public static $rootUrl;
 
     /**
      * Generate a link to the given view
+     *
      * @param string $view
+     *
      * @return string
      */
     public static function link($view)
@@ -38,26 +42,37 @@ abstract class View
             <meta name="msapplication-tap-highlight" content="no">
             <meta name="viewport"
                   content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-            <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/bootstrap-select.min.css">
-            <link rel="stylesheet" type="text/css" href="<?= View::$rootUrl ?>/stylesheets/page.css">
-            <link rel="shortcut icon" href="<?= View::$rootUrl ?>/images/favicon.ico" type="image/icon"/>
-            <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/jquery-3.1.1.min.js"></script>
-            <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/global.js"></script>
+            <link rel="stylesheet" type="text/css"
+                  href="<?= View::$rootUrl ?>/stylesheets/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css"
+                  href="<?= View::$rootUrl ?>/stylesheets/bootstrap-select.min.css">
+            <link rel="stylesheet" type="text/css"
+                  href="<?= View::$rootUrl ?>/stylesheets/page.css">
+            <link rel="shortcut icon"
+                  href="<?= View::$rootUrl ?>/images/favicon.ico"
+                  type="image/icon"/>
+            <script type="text/javascript"
+                    src="<?= View::$rootUrl ?>/scripts/jquery-3.1.1.min.js"></script>
+            <script type="text/javascript"
+                    src="<?= View::$rootUrl ?>/scripts/global.js"></script>
             <?php
             // check if an extra script file for current view exist, if yes include it
-            $class = strtolower(basename(str_replace("\\", "/", get_class($this))));
+            $class = strtolower(basename(str_replace("\\", "/",
+                get_class($this))));
             $path = __DIR__ . "/../scripts/view/$class.js";
             if (file_exists($path)) {
                 $url = View::$rootUrl . '/scripts/view/' . $class . ".js";
-                echo '<script type="text/javascript" src="' . $url . '"></script>';
+                echo '<script type="text/javascript" src="' . $url
+                    . '"></script>';
             }
             ?>
             <title>Omx Web Gui by BrainFooLong</title>
             <script type="text/javascript">
                 owg.translations = <?=json_encode(Translation::$values)?>;
                 owg.language = '<?=Data::getKey("settings", "language")?>';
-                if (owg.language == '') owg.language = "en";
+                if (owg.language == '') {
+                    owg.language = "en";
+                }
                 owg.rootUrl = '<?=View::$rootUrl?>';
                 owg.folders = <?=json_encode(Data::get("folders"))?>;
                 owg.settings = <?=json_encode(Data::get("settings"))?>;
@@ -67,15 +82,18 @@ abstract class View
 
         <div id="wrapper">
             <div class="overlay"></div>
-            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <button type="button" class="hamburger is-closed"
+                    data-toggle="offcanvas">
                 <span class="hamb-top"></span>
                 <span class="hamb-middle"></span>
                 <span class="hamb-bottom"></span>
             </button>
-            <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <nav class="navbar navbar-inverse navbar-fixed-top"
+                 id="sidebar-wrapper" role="navigation">
                 <ul class="nav sidebar-nav">
                     <li class="sidebar-brand">
-                        <div><img src="<?= View::$rootUrl ?>/images/logo.png"></div>
+                        <div><img src="<?= View::$rootUrl ?>/images/logo.png">
+                        </div>
                     </li>
                     <li>
                         <a href="<?= View::link("index") ?>"><?= t("playlist") ?></a>
@@ -84,10 +102,12 @@ abstract class View
                         <a href="<?= View::link("settings") ?>"><?= t("settings") ?></a>
                     </li>
                     <li>
-                        <a href="https://github.com/brainfoolong/omxwebgui-v2" target="_blank">Github</a>
+                        <a href="https://github.com/brainfoolong/omxwebgui-v2"
+                           target="_blank">Github</a>
                     </li>
                     <li>
-                        <a href="https://github.com/brainfoolong/omxwebgui-v2/issues" target="_blank">Issues</a>
+                        <a href="https://github.com/brainfoolong/omxwebgui-v2/issues"
+                           target="_blank">Issues</a>
                     </li>
                 </ul>
             </nav>
@@ -97,7 +117,9 @@ abstract class View
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="spinner-container"></div>
                             <div class="page-content">
-                                <a class="top-logo" href="https://github.com/brainfoolong/omxwebgui-v2" target="_blank">
+                                <a class="top-logo"
+                                   href="https://github.com/brainfoolong/omxwebgui-v2"
+                                   target="_blank">
                                     <strong>OMXWEBGUI</strong>
                                     <small>by BrainFooLong</small>
                                 </a>
@@ -113,8 +135,10 @@ abstract class View
             </div>
         </div>
 
-        <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="<?= View::$rootUrl ?>/scripts/bootstrap-select.min.js"></script>
+        <script type="text/javascript"
+                src="<?= View::$rootUrl ?>/scripts/bootstrap.min.js"></script>
+        <script type="text/javascript"
+                src="<?= View::$rootUrl ?>/scripts/bootstrap-select.min.js"></script>
         </body>
         </html>
         <?php

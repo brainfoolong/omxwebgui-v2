@@ -7,6 +7,7 @@ use Nullix\Omxwebgui\View;
 
 /**
  * Class Index
+ *
  * @package Nullix\Omxwebgui\View
  */
 class Index extends View
@@ -14,6 +15,7 @@ class Index extends View
 
     /**
      * Tmp saved file formats
+     *
      * @var string
      */
     private $fileFormats;
@@ -35,7 +37,8 @@ class Index extends View
         if (post("action") == "status") {
             $data = array("status" => "stopped");
             $output = $return = "";
-            exec('sh ' . escapeshellcmd(dirname(dirname(__DIR__)) . "/omx-status.sh"), $output, $return);
+            exec('sh ' . escapeshellcmd(dirname(dirname(__DIR__))
+                    . "/omx-status.sh"), $output, $return);
             if ($return) {
                 $data["status"] = "playing";
                 $activeFile = Data::get("active-file");
@@ -56,7 +59,8 @@ class Index extends View
             }
             $settings = Data::get("settings");
             $params = [
-                isset($settings["speedfix"]) && $settings["speedfix"] ? "1" : "0",
+                isset($settings["speedfix"]) && $settings["speedfix"] ? "1"
+                    : "0",
                 isset($settings["audioout"]) ? $settings["audioout"] : "hdmi",
                 isset($settings["initvol"]) ? $settings["initvol"] * 100 : "0"
             ];
@@ -77,7 +81,8 @@ class Index extends View
                     break;
                 default:
                     $key = Omx::$hotkeys[$shortcut];
-                    Omx::sendCommand(escapeshellarg(isset($key["shortcut"]) ? $key["shortcut"] : $shortcut), "pipe");
+                    Omx::sendCommand(escapeshellarg(isset($key["shortcut"])
+                        ? $key["shortcut"] : $shortcut), "pipe");
             }
             return;
         }
@@ -94,7 +99,8 @@ class Index extends View
                 foreach ($folders as $folderData) {
                     $files = array_merge(
                         $files,
-                        $this->getFilesRecursive($folderData["folder"], (bool)$folderData["recursive"])
+                        $this->getFilesRecursive($folderData["folder"],
+                            (bool)$folderData["recursive"])
                     );
                 }
             }
@@ -105,7 +111,8 @@ class Index extends View
                     "path" => $file,
                     "dir" => dirname($file),
                     "filename" => basename($file),
-                    "seen" => isset($filesseen[md5($file)]) && $filesseen[md5($file)]
+                    "seen" => isset($filesseen[md5($file)])
+                        && $filesseen[md5($file)]
                 ];
             }
             echo json_encode($json);
@@ -122,7 +129,8 @@ class Index extends View
         ?>
         <div class="spacer">
             <h1 class="pull-left"><?= t("playlist") ?></h1>
-            <div class="btn btn-info pull-right" style="margin-top: 20px" onclick="$('.keymap').toggleClass('hidden')">
+            <div class="btn btn-info pull-right" style="margin-top: 20px"
+                 onclick="$('.keymap').toggleClass('hidden')">
                 <?= t("keymap.btn") ?>
             </div>
             <div class="clearfix"></div>
@@ -147,8 +155,10 @@ class Index extends View
                             $keyValue = "&#x2193";
                             break;
                     }
-                    echo '<div class="col-md-3 col-xs-6 btn btn-success" data-key="' . $value["key"] . '" data-shortcut="' . $key . '">
-                        <div class="shortcut">' . $keyValue . '</div><div class="info">' . t("shortcut-$key") . '</div>
+                    echo '<div class="col-md-3 col-xs-6 btn btn-success" data-key="'
+                        . $value["key"] . '" data-shortcut="' . $key . '">
+                        <div class="shortcut">' . $keyValue
+                        . '</div><div class="info">' . t("shortcut-$key") . '</div>
                         </div>';
                 }
                 ?>
@@ -157,9 +167,11 @@ class Index extends View
         </div>
         <div class="note bg-primary"><span class="player-status">-</span></div>
         <div class="input-group spacer">
-            <div class="input-group-addon"><img src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"
-                                                width="15"></div>
-            <input type="text" class="form-control input-lg search" placeholder="<?= t("search.placeholder") ?>">
+            <div class="input-group-addon"><img
+                        src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"
+                        width="15"></div>
+            <input type="text" class="form-control input-lg search"
+                   placeholder="<?= t("search.placeholder") ?>">
         </div>
         <div class="filelist"></div>
         <?php
@@ -167,8 +179,10 @@ class Index extends View
 
     /**
      * Display recursive
+     *
      * @param string $path
-     * @param bool $recursive
+     * @param bool   $recursive
+     *
      * @return array
      */
     private function getFilesRecursive($path, $recursive)
@@ -188,9 +202,11 @@ class Index extends View
                 $filePath = $path . "/" . $file;
                 if (is_dir($filePath)) {
                     if ($recursive) {
-                        $files = array_merge($files, $this->getFilesRecursive($filePath, $recursive));
+                        $files = array_merge($files,
+                            $this->getFilesRecursive($filePath, $recursive));
                     }
-                } elseif (preg_match("~(" . $this->fileFormats . ")$~i", $file)) {
+                } elseif (preg_match("~(" . $this->fileFormats . ")$~i",
+                    $file)) {
                     $files[] = $filePath;
                 }
             }

@@ -6,12 +6,14 @@ use Nullix\Omxwebgui\View;
 
 /**
  * Class Settings
+ *
  * @package Nullix\Omxwebgui\View
  */
 class Settings extends View
 {
     /**
      * Default file formats
+     *
      * @var string
      */
     public static $defaultFileFormats = "mp4|mkv|mpg|avi|mpeg|mp3|ogg";
@@ -23,7 +25,8 @@ class Settings extends View
     {
         if (post("delete-seen")) {
             Data::set("filesseen", null);
-            echo '<div class="btn btn-success note">' . t("settings.seen.reseted") . '</div>';
+            echo '<div class="btn btn-success note">'
+                . t("settings.seen.reseted") . '</div>';
         }
 
         if (post("save")) {
@@ -74,7 +77,9 @@ class Settings extends View
             <div class="folders spacer">
                 <div class="row hidden">
                     <div class="col-xs-6">
-                        <input type="text" placeholder="<?= t("settings.folders.path") ?>" name="folder[]"
+                        <input type="text"
+                               placeholder="<?= t("settings.folders.path") ?>"
+                               name="folder[]"
                                class="form-control">
                     </div>
                     <div class="col-xs-4">
@@ -97,7 +102,9 @@ class Settings extends View
                 <small><?= t("settings.fileformats.desc") ?></small>
             </div>
             <div class="spacer">
-                <input type="text" placeholder="<?= self::$defaultFileFormats ?>" name="setting[file_formats]"
+                <input type="text"
+                       placeholder="<?= self::$defaultFileFormats ?>"
+                       name="setting[file_formats]"
                        class="form-control">
             </div>
 
@@ -141,7 +148,8 @@ class Settings extends View
                 <select class="selectpicker" name="setting[initvol]">
                     <?php
                     for ($i = 0; $i >= -30; $i -= 3) {
-                        echo '<option value="' . $i . '">' . $i . ' dB</option>';
+                        echo '<option value="' . $i . '">' . $i
+                            . ' dB</option>';
                     }
                     ?>
                 </select>
@@ -157,7 +165,8 @@ class Settings extends View
                     <option value="de">Deutsch</option>
                 </select>
             </div>
-            <input type="submit" value="<?= t("save") ?>" name="save" class="btn btn-default btn-info">
+            <input type="submit" value="<?= t("save") ?>" name="save"
+                   class="btn btn-default btn-info">
         </form>
 
         <div class="spacer"></div>
@@ -167,7 +176,8 @@ class Settings extends View
         <h1><?= t("settings.resetflags.title") ?></h1>
         <p><?= t("settings.resetflags.desc") ?></p>
         <form name="delete-seen" method="post" action="">
-            <input type="submit" value="<?= t("delete") ?>" name="delete-seen" class="btn btn-danger">
+            <input type="submit" value="<?= t("delete") ?>" name="delete-seen"
+                   class="btn btn-danger">
         </form>
         <script type="text/javascript">
             owg.folders = <?=json_encode(Data::get("folders"))?>;

@@ -7,7 +7,9 @@ namespace {
 
     /**
      * Get a post value
+     *
      * @param string $key
+     *
      * @return mixed
      */
     function post($key)
@@ -17,7 +19,9 @@ namespace {
 
     /**
      * Get a get value
+     *
      * @param string $key
+     *
      * @return mixed
      */
     function get($key)
@@ -27,8 +31,10 @@ namespace {
 
     /**
      * Get a translation key
+     *
      * @param string $key
-     * @param mixed $parameters Parameters to replace
+     * @param mixed  $parameters Parameters to replace
+     *
      * @return mixed
      */
     function t($key, $parameters = null)
@@ -61,6 +67,7 @@ namespace Nullix\Omxwebgui {
 
     /**
      * Class Core
+     *
      * @package Nullix\Omxwebgui
      */
     class Core
@@ -68,6 +75,7 @@ namespace Nullix\Omxwebgui {
 
         /**
          * The current version
+         *
          * @var string
          */
         public static $version = "0.9.0";
@@ -115,7 +123,8 @@ namespace Nullix\Omxwebgui {
                 // replace the namespace prefix with the base directory, replace namespace
                 // separators with directory separators in the relative class name, append
                 // with .php
-                $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+                $file = $base_dir . str_replace('\\', '/', $relative_class)
+                    . '.php';
 
                 // if the file exists, require it
                 if (file_exists($file)) {

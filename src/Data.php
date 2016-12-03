@@ -3,20 +3,24 @@ namespace Nullix\Omxwebgui;
 
 /**
  * Simple json data storage
+ *
  * @package Nullix\Omxwebgui
  */
 class Data
 {
     /**
      * Cache for the files
+     *
      * @var array
      */
     private static $cache;
 
     /**
      * Read a data file from disk and get a specific key from the values array
+     *
      * @param string $file
      * @param string $key
+     *
      * @return mixed
      */
     public static function getKey($file, $key)
@@ -29,9 +33,10 @@ class Data
 
     /**
      * Set a specific data value for the given key
+     *
      * @param string $file
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public static function setKey($file, $key, $value)
     {
@@ -42,7 +47,9 @@ class Data
 
     /**
      * Read a data file from disk
+     *
      * @param string $file
+     *
      * @return mixed
      */
     public static function get($file)
@@ -59,8 +66,10 @@ class Data
 
     /**
      * Write a data file to disk
+     *
      * @param string $file
-     * @param mixed $value Any value to store in the file
+     * @param mixed  $value Any value to store in the file
+     *
      * @throws \Exception
      */
     public static function set($file, $value)

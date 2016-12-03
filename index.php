@@ -15,7 +15,9 @@ if ($match) {
 }
 // just check if the given view exists
 preg_match("~(.*?)\/index.php\/([a-z]+)~", $url, $match);
-if ($match && file_exists(__DIR__ . "/src/View/" . ucfirst($match[2]) . ".php")) {
+if ($match
+    && file_exists(__DIR__ . "/src/View/" . ucfirst($match[2]) . ".php")
+) {
     $viewClass = ucfirst($match[2]);
     View::$rootUrl = $match[1];
 }
