@@ -3,7 +3,6 @@ This web GUI give you easy control of your OMX player, directly via your browser
 
 <img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-1.png" width="30%">
 <img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-2.png" width="30%">
-<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-3.png" width="30%">
 
 ## Features
 * Start and stop media files via webinterface
