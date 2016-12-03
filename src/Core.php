@@ -43,7 +43,7 @@ namespace {
             $value = Translation::$values[$lang][$key];
         } else {
             if (isset(Translation::$values["en"][$key])) {
-                $value = Translation::$values[$lang][$key];
+                $value = Translation::$values["en"][$key];
             } else {
                 $value = $key;
             }

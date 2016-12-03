@@ -46,12 +46,20 @@ $(function () {
             "shortcut": "start",
             "path": $(this).attr("data-path")
         });
+    }).on("click", ".filelist .file img", function (ev) {
+        ev.stopPropagation();
+        var file = $(this).closest(".file");
+        file.toggleClass("seen-false seen-true");
+        $.post(window.location.href, {
+            "action": "seen",
+            "path": file.attr("data-path")
+        });
     });
 
 
     var fl = $(".filelist");
     var files = fl.children(".file");
-    var visImg = owg.rootUrl + '/images/icons/ic_visibility_white_24dp_1x.png';
+    var visImg = owg.rootUrl + '/images/icons/ic_visibility_white_24dp_2x.png';
     spinner(".filelist");
 
     // get filelist
@@ -119,7 +127,6 @@ $(function () {
                     }
                     data.el.html(html);
                 }
-
             });
         }
     });

@@ -24,6 +24,13 @@ class Index extends View
     public function load()
     {
 
+        if (post("action") == "seen") {
+            $path = md5(post("path"));
+            $flag = Data::getKey("filesseen", $path);
+            Data::setKey("filesseen", $path, !$flag);
+            return;
+        }
+
         // get player status, is running or not
         if (post("action") == "status") {
             $data = array("status" => "stopped");
@@ -98,7 +105,7 @@ class Index extends View
                     "path" => $file,
                     "dir" => dirname($file),
                     "filename" => basename($file),
-                    "seen" => isset($filesseen[md5($file)])
+                    "seen" => isset($filesseen[md5($file)]) && $filesseen[md5($file)]
                 ];
             }
             echo json_encode($json);
@@ -114,16 +121,14 @@ class Index extends View
     {
         ?>
         <div class="spacer">
-            <h1 class="pull-left">Playlist</h1>
+            <h1 class="pull-left"><?= t("playlist") ?></h1>
             <div class="btn btn-info pull-right" style="margin-top: 20px" onclick="$('.keymap').toggleClass('hidden')">
-                Keymapping and Controls
+                <?= t("keymap.btn") ?>
             </div>
             <div class="clearfix"></div>
         </div>
         <div class="keymap hidden">
-            <p>Most Omxplayer keyboard bindings are available directly on this webpage. You can press the corresponding
-                key on your keyboard or you can click the button. Make sure your focus is out of the search input
-                field.</p>
+            <p><?= t("keymap.desc") ?></p>
             <div class="buttons row">
                 <?php
                 foreach (Omx::$hotkeys as $key => $value) {
@@ -154,7 +159,7 @@ class Index extends View
         <div class="input-group spacer">
             <div class="input-group-addon"><img src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"
                                                 width="15"></div>
-            <input type="text" class="form-control input-lg search" placeholder="Search for folder and files...">
+            <input type="text" class="form-control input-lg search" placeholder="<?= t("search.placeholder") ?>">
         </div>
         <div class="filelist"></div>
         <?php
@@ -189,7 +194,8 @@ class Index extends View
                     $files[] = $filePath;
                 }
             }
+            return $files;
         }
-        return $files;
+        return [];
     }
 }

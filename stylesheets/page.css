@@ -418,6 +418,7 @@ h1 {
 
 .page-content {
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .filelist .file {
@@ -436,7 +437,7 @@ h1 {
 
 .filelist .file .dir,
 .filelist .file .filename{
-    padding-left: 25px;
+    padding-left: 45px;
 }
 
 .filelist .file .dir{
@@ -451,7 +452,7 @@ h1 {
 }
 
 .filelist .file img{
-    width:16px;
+    width:32px;
     position:absolute;
 }
 

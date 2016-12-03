@@ -59,8 +59,7 @@ function t(key, parameters) {
     var value = key;
     if (typeof owg.translations[owg.language] !== "undefined" && typeof owg.translations[owg.language][key] !== "undefined") {
         value = owg.translations[owg.language][key];
-    }
-    if (typeof owg.translations["en"][key] !== "undefined") {
+    } else if (typeof owg.translations["en"][key] !== "undefined") {
         value = owg.translations["en"][key];
     }
     if (parameters) {

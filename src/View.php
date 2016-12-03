@@ -56,7 +56,7 @@ abstract class View
             <title>Omx Web Gui by BrainFooLong</title>
             <script type="text/javascript">
                 owg.translations = <?=json_encode(Translation::$values)?>;
-                owg.language = '<?=Data::getKey("setting", "language")?>';
+                owg.language = '<?=Data::getKey("settings", "language")?>';
                 if (owg.language == '') owg.language = "en";
                 owg.rootUrl = '<?=View::$rootUrl?>';
                 owg.folders = <?=json_encode(Data::get("folders"))?>;
@@ -78,16 +78,16 @@ abstract class View
                         <div><img src="<?= View::$rootUrl ?>/images/logo.png"></div>
                     </li>
                     <li>
-                        <a href="<?= View::link("index") ?>">Playlist</a>
+                        <a href="<?= View::link("index") ?>"><?= t("playlist") ?></a>
                     </li>
                     <li>
-                        <a href="<?= View::link("settings") ?>">Settings</a>
+                        <a href="<?= View::link("settings") ?>"><?= t("settings") ?></a>
                     </li>
                     <li>
-                        <a href="https://github.com/brainfoolong/omxwebgui" target="_blank">Github</a>
+                        <a href="https://github.com/brainfoolong/omxwebgui-v2" target="_blank">Github</a>
                     </li>
                     <li>
-                        <a href="https://github.com/brainfoolong/omxwebgui/issues" target="_blank">Issues</a>
+                        <a href="https://github.com/brainfoolong/omxwebgui-v2/issues" target="_blank">Issues</a>
                     </li>
                 </ul>
             </nav>
@@ -97,7 +97,7 @@ abstract class View
                         <div class="col-lg-8 col-lg-offset-2">
                             <div class="spinner-container"></div>
                             <div class="page-content">
-                                <a class="top-logo" href="https://github.com/brainfoolong/omxwebgui" target="_blank">
+                                <a class="top-logo" href="https://github.com/brainfoolong/omxwebgui-v2" target="_blank">
                                     <strong>OMXWEBGUI</strong>
                                     <small>by BrainFooLong</small>
                                 </a>

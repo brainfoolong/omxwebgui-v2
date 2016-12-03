@@ -21,6 +21,11 @@ class Settings extends View
      */
     public function getContent()
     {
+        if (post("delete-seen")) {
+            Data::set("filesseen", null);
+            echo '<div class="btn btn-success note">' . t("settings.seen.reseted") . '</div>';
+        }
+
         if (post("save")) {
             $settings = Data::get("settings");
             $postSettings = post("setting");
@@ -46,23 +51,21 @@ class Settings extends View
                 }
                 Data::set("folders", $folders);
             }
-            echo '<div class="btn btn-success note">Settings saved</div>';
+            echo '<div class="btn btn-success note">' . t("saved") . '</div>';
         }
         ?>
-        <h1>Settings</h1>
+        <h1><?= t("settings") ?></h1>
         <form name="settings" method="post" action="">
             <div class="title">
-                <strong>Media folders and files</strong>
-                <small>Point to folders with your media files or directly to a single media file. You can also add URL's
-                    to direct-streams or online files (rtmp://, rtstp://, http://).
-                </small>
+                <strong><?= t("settings.folders.title") ?></strong>
+                <small><?= t("settings.folders.desc") ?></small>
             </div>
             <div class="row">
                 <div class="col-xs-6">
                     &nbsp;
                 </div>
                 <div class="col-xs-4">
-                    Recursive
+                    <?= t("recursive") ?>
                 </div>
                 <div class="col-xs-2">
                     &nbsp;
@@ -71,12 +74,13 @@ class Settings extends View
             <div class="folders spacer">
                 <div class="row hidden">
                     <div class="col-xs-6">
-                        <input type="text" placeholder="Absolute Path" name="folder[]" class="form-control">
+                        <input type="text" placeholder="<?= t("settings.folders.path") ?>" name="folder[]"
+                               class="form-control">
                     </div>
                     <div class="col-xs-4">
                         <select class="selectpicker" name="folder_recursive[]">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option value="0"><?= t("no") ?></option>
+                            <option value="1"><?= t("yes") ?></option>
                         </select>
                     </div>
                     <div class="col-xs-2">
@@ -85,33 +89,31 @@ class Settings extends View
                 </div>
             </div>
             <div class="spacer">
-                <span class="btn btn-default btn-xs add-folder">Add another folder</span>
+                <span class="btn btn-default btn-xs add-folder"><?= t("settings.folders.add") ?></span>
             </div>
 
             <div class="title spacer">
-                <strong>File formats</strong>
-                <small>You can modify the file formats that will be available for the playlist.</small>
+                <strong><?= t("settings.fileformats.title") ?></strong>
+                <small><?= t("settings.fileformats.desc") ?></small>
             </div>
             <div class="spacer">
-                <input type="text" placeholder="Default: <?= self::$defaultFileFormats ?>" name="setting[file_formats]"
+                <input type="text" placeholder="<?= self::$defaultFileFormats ?>" name="setting[file_formats]"
                        class="form-control">
             </div>
 
             <div class="title spacer">
-                <strong>Double speed and no audio fix</strong>
-                <small>Activate this if you have troubles with videos starting at double speed and without
-                    audio
-                </small>
+                <strong><?= t("settings.speedfix.title") ?></strong>
+                <small><?= t("settings.speedfix.desc") ?></small>
             </div>
             <div class="spacer">
                 <select class="selectpicker" name="setting[speedfix]">
-                    <option value="0">Disabled</option>
-                    <option value="1">Enabled</option>
+                    <option value="0"><?= t("disabled") ?></option>
+                    <option value="1"><?= t("enabled") ?></option>
                 </select>
             </div>
 
             <div class="title spacer">
-                <strong>Audio out device</strong>
+                <strong><?= t("settings.audioout.title") ?></strong>
             </div>
             <div class="spacer">
                 <select class="selectpicker" name="setting[audioout]">
@@ -121,7 +123,8 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
-                <strong>Initial Volume</strong>
+                <strong><?= t("settings.initvol.title") ?></strong>
+                <small><?= t("settings.initvol.desc") ?></small>
             </div>
             <div class="spacer">
                 <select class="selectpicker" name="setting[initvol]">
@@ -134,8 +137,8 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
-                <strong>Language</strong>
-                <small>Change language for the interface</small>
+                <strong><?= t("settings.language.title") ?></strong>
+                <small><?= t("settings.language.desc") ?></small>
             </div>
             <div class="spacer">
                 <select class="selectpicker" name="setting[language]">
@@ -143,7 +146,17 @@ class Settings extends View
                     <option value="de">Deutsch</option>
                 </select>
             </div>
-            <input type="submit" value="Save" name="save" class="btn btn-default btn-info">
+            <input type="submit" value="<?= t("save") ?>" name="save" class="btn btn-default btn-info">
+        </form>
+
+        <div class="spacer"></div>
+        <br/>
+        <div class="spacer"></div>
+
+        <h1><?= t("settings.resetflags.title") ?></h1>
+        <p><?= t("settings.resetflags.desc") ?></p>
+        <form name="delete-seen" method="post" action="">
+            <input type="submit" value="<?= t("delete") ?>" name="delete-seen" class="btn btn-danger">
         </form>
         <?php
     }
