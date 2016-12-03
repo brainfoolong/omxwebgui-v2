@@ -1,8 +1,9 @@
 # Web GUI for OMX Player on a Raspberry Pi
 This web GUI give you easy control of your OMX player, directly via your browser. Start your video and audio files directly with your smartphone, tablet or desktop browser. This GUI is the successor to the first, simpler version of omxwebgui at https://github.com/brainfoolong/omxwebgui/.
 
-<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-1.png" width="30%">
-<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-2.png" width="30%">
+<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-1.png?1" width="30%">
+<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-2.png?1" width="30%">
+<img src="https://brainfoolong.github.io/omxwebgui-v2/images/screenshot-3.png?1" width="30%">
 
 ## Features
 * Start and stop media files via webinterface
