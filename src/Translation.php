@@ -69,6 +69,8 @@ class Translation
             "settings.language.desc" => "Select the language for the web interface",
             "settings.resetflags.title" => "Reset seen flags",
             "settings.resetflags.desc" => "Delete all seen flags from all videos with just one click",
+            "settings.hidefolder.title" => "Hide folder names in playlist",
+            "settings.hidefolder.desc" => "Enable a more compact view for the playlist by hiding the folder names",
 
         ],
         "de" => [
@@ -127,6 +129,8 @@ class Translation
             "settings.language.desc" => "Wähle eine Sprache für das Webinterface",
             "settings.resetflags.title" => "Lösche alle gesehen Flags",
             "settings.resetflags.desc" => "Lösche alle gesehen Flags mit einem Klick",
+            "settings.hidefolder.title" => "Verstecke Ordnername in Wiedergabeliste",
+            "settings.hidefolder.desc" => "Aktiviere eine kompaktere Ansicht mit dieser Option",
         ]
     ];
 }

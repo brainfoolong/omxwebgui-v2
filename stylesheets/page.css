@@ -445,6 +445,10 @@ h1 {
     font-size: 95%;
 }
 
+.filelist .file.hidefolder .dir{
+    display: none;
+}
+
 .filelist .file .match{
     background: white;
     color:#2ac7d2;
@@ -454,6 +458,10 @@ h1 {
 .filelist .file img{
     width:32px;
     position:absolute;
+}
+
+.filelist .file.hidefolder img{
+    width:16px;
 }
 
 .filelist .file.seen-false img{

@@ -113,6 +113,17 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
+                <strong><?= t("settings.hidefolder.title") ?></strong>
+                <small><?= t("settings.hidefolder.desc") ?></small>
+            </div>
+            <div class="spacer">
+                <select class="selectpicker" name="setting[hidefolder]">
+                    <option value="0"><?= t("disabled") ?></option>
+                    <option value="1"><?= t("enabled") ?></option>
+                </select>
+            </div>
+
+            <div class="title spacer">
                 <strong><?= t("settings.audioout.title") ?></strong>
             </div>
             <div class="spacer">
@@ -158,6 +169,10 @@ class Settings extends View
         <form name="delete-seen" method="post" action="">
             <input type="submit" value="<?= t("delete") ?>" name="delete-seen" class="btn btn-danger">
         </form>
+        <script type="text/javascript">
+            owg.folders = <?=json_encode(Data::get("folders"))?>;
+            owg.settings = <?=json_encode(Data::get("settings"))?>;
+        </script>
         <?php
     }
 }

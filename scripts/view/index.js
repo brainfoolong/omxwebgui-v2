@@ -70,6 +70,7 @@ $(function () {
             for (var i in data) {
                 var file = data[i];
                 var fileEl = $('<div class="file">');
+                if (owg.settings.hidefolder) fileEl.addClass("hidefolder");
                 fileEl.addClass('seen-' + (file.seen ? 'true' : 'false'));
                 fileEl.attr("data-path", file.path);
                 fileEl.attr("data-dir", file.dir);
