@@ -8,6 +8,12 @@ namespace Nullix\Omxwebgui;
 class Data
 {
     /**
+     * Cache for the files
+     * @var array
+     */
+    private static $cache;
+
+    /**
      * Read a data file from disk and get a specific key from the values array
      * @param string $file
      * @param string $key
@@ -26,13 +32,12 @@ class Data
      * @param string $file
      * @param string $key
      * @param mixed $value
-     * @return bool
      */
     public static function setKey($file, $key, $value)
     {
         $data = self::get($file);
         $data[$key] = $value;
-        return self::set($file, $data);
+        self::set($file, $data);
     }
 
     /**
@@ -42,6 +47,9 @@ class Data
      */
     public static function get($file)
     {
+        if (isset(self::$cache[$file])) {
+            return self::$cache[$file];
+        }
         $path = __DIR__ . "/../data/$file.json";
         if (!file_exists($path) || !is_readable($path)) {
             return null;
@@ -53,7 +61,6 @@ class Data
      * Write a data file to disk
      * @param string $file
      * @param mixed $value Any value to store in the file
-     * @return bool
      * @throws \Exception
      */
     public static function set($file, $value)
@@ -67,10 +74,10 @@ class Data
         }
         // delete file if null is given
         if ($value === null) {
+            unset(self::$cache[$file]);
             if (file_exists($path)) {
                 unlink($path);
             }
-            return;
         }
         // if a mutex file exist (other write progress not finished) than just wait a second
         // every write progress should not last longer than 1 second
@@ -88,5 +95,7 @@ class Data
         file_put_contents($path, $json);
         // delete mutex
         unlink($mutex);
+        // set cache
+        self::$cache[$file] = $value;
     }
 }
