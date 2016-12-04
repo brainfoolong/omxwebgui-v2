@@ -11,7 +11,15 @@ then
     rm $1
 fi
 mkfifo $1
-omxplayer -b "$2" -o $4 --vol $5 < $1 &
+
+filename=$(basename $2)
+subtitle_path="$6/${filename%.*}.srt"
+if [ -e "$subtitle_path" ]; then
+  omxplayer -b "$2" -o $4 --subtitles "$subtitle_path" < $1 &
+  else
+  omxplayer -b "$2" -o $4 < $1 &
+fi
+
 echo -n "." > $1 &
 
 # fix for double play speed at start

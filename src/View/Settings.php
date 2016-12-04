@@ -166,6 +166,17 @@ class Settings extends View
                     <option value="de">Deutsch</option>
                 </select>
             </div>
+
+            <div class="title spacer">
+                <strong><?= t("settings.subtitlesfolder.title") ?></strong>
+                <small><?= t("settings.subtitlesfolder.desc") ?></small>
+            </div>
+            <div class="spacer">
+                <input type="text"
+                       placeholder="<?= t("settings.subtitlesfolder.title") ?>"
+                       name="setting[subtitles_folder]"
+                       class="form-control">
+            </div>
             <input type="submit" value="<?= t("save") ?>" name="save"
                    class="btn btn-default btn-info">
         </form>

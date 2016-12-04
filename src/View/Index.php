@@ -62,7 +62,9 @@ class Index extends View
                 isset($settings["speedfix"]) && $settings["speedfix"] ? "1"
                     : "0",
                 isset($settings["audioout"]) ? $settings["audioout"] : "hdmi",
-                isset($settings["initvol"]) ? $settings["initvol"] * 100 : "0"
+                isset($settings["initvol"]) ? $settings["initvol"] * 100 : "0",
+                isset($settings["subtitles_folder"]) ? "'" .
+                    $settings["subtitles_folder"] . "'" : false,
             ];
             $startCmd = escapeshellarg($path) . " " . implode(" ", $params);
             switch (post("shortcut")) {
