@@ -74,7 +74,8 @@ class Translation
                 "settings.resetflags.desc" => "Delete all seen flags from all videos with just one click",
                 "settings.hidefolder.title" => "Hide folder names in playlist",
                 "settings.hidefolder.desc" => "Enable a more compact view for the playlist by hiding the folder names",
-
+                "settings.subtitlesfolder.title" => "Subtitles folder",
+                "settings.subtitlesfolder.desc" => "If you would like to keep your subtitle files in a separate place from your media files, you can provide the folder here.",
             ],
             "de" => [
                 "shortcut-q" => "Stoppe\nPlayer",
@@ -134,6 +135,8 @@ class Translation
                 "settings.resetflags.desc" => "Lösche alle gesehen Flags mit einem Klick",
                 "settings.hidefolder.title" => "Verstecke Ordnername in Wiedergabeliste",
                 "settings.hidefolder.desc" => "Aktiviere eine kompaktere Ansicht mit dieser Option",
+                "settings.subtitlesfolder.title" => "Untertitel Ordner",
+                "settings.subtitlesfolder.desc" => "Wenn Sie Ihre Untertitel-Dateien an einem anderen Ort aus Ihren Mediendateien speichern möchten, können Sie den Ordner hier angeben.",
             ]
         ];
 }
