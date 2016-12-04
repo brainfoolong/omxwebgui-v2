@@ -137,6 +137,7 @@ class Settings extends View
                 <select class="selectpicker" name="setting[audioout]">
                     <option value="hdmi">HDMI</option>
                     <option value="local">Local</option>
+                    <option value="both">Both</option>
                 </select>
             </div>
 
