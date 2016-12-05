@@ -19,6 +19,7 @@ Feel free to send pull requests. Create an issue for a new feature BEFORE you do
 
 ## Requirements
 It is strongly recommended to use it just with the php-cli. Do not use it in combination with a webserver, it will not work. Just use it as described bellow. Only PHP is required. It is also PHP7 compatible.
+
 `sudo apt-get install php5-cli`
 
 ## Installation
@@ -30,7 +31,7 @@ Open the webpage with http://IPTOYOURPI:4321
 
 ## Autostart
 To enable autostart on reboot just add the following line to your crontab. Do this with the same user that you need to play the videos. No `sudo` required.
-Add the following line to crontab with `sudo crontab -e` to start the simple php webserver on reboot
+Add the following line to crontab with `crontab -e` to start the simple php webserver on reboot
 
 `@reboot php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &`
 
