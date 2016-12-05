@@ -1,7 +1,9 @@
 <?php
 namespace Nullix\Omxwebgui\View;
 
+use Nullix\Omxwebgui\Core;
 use Nullix\Omxwebgui\Data;
+use Nullix\Omxwebgui\Github;
 use Nullix\Omxwebgui\View;
 
 /**
@@ -19,14 +21,68 @@ class Settings extends View
     public static $defaultFileFormats = "mp4|mkv|mpg|avi|mpeg|mp3|ogg";
 
     /**
+     * Load
+     */
+    public function load()
+    {
+        if (post("do-update")) {
+            $tmpFile = dirname(dirname(__DIR__)) . "/tmp/update.zip";
+            $lastRelease = Data::getKey("updater", "github-last-release");
+            if ($lastRelease) {
+                Github::download($lastRelease["zipball_url"], $tmpFile);
+                if (file_exists($tmpFile)) {
+                    $folder = dirname(dirname(__DIR__));
+                    exec("unzip -u " . $tmpFile . " -d " . escapeshellarg($folder) . " -o ");
+                    unlink($tmpFile);
+                }
+            }
+            header("Location: " . View::link("settings") . "?update-done=1");
+            die();
+        }
+
+        // check if new version exists
+        if (get("check_update")) {
+            $lastRelease = Data::getKey("updater", "github-last-release");
+            if (Data::getKey("settings", "check_update") !== "0") {
+                // do update checks only each hour
+                $lastUpdate = Data::getKey("updater", "last-check");
+                if (get("force") || !$lastUpdate || $lastUpdate < time() - 3600) {
+                    Data::setKey("updater", "last-check", time());
+                    $apiData = Github::apiRequest("https://api.github.com/repos/brainfoolong/omxwebgui-v2/releases");
+                    if ($apiData) {
+                        if (isset($apiData[0]["tag_name"]) && $apiData[0]["tag_name"] != Core::$version) {
+                            $lastRelease = [
+                                "version" => $apiData[0]["tag_name"],
+                                "published_at" => $apiData[0]["published_at"],
+                                "zipball_url" => $apiData[0]["zipball_url"]
+                            ];
+                            Data::setKey(
+                                "updater",
+                                "github-last-release",
+                                $lastRelease
+                            );
+                        }
+                    }
+                }
+            }
+            echo json_encode($lastRelease);
+            return;
+        }
+        parent::load();
+    }
+
+    /**
      * Get content for the page
      */
     public function getContent()
     {
+        if (get("update-done")) {
+            echo '<div class="btn btn-success note">' . t("settings.updates.success") . '</div>';
+        }
+
         if (post("delete-seen")) {
             Data::set("filesseen", null);
-            echo '<div class="btn btn-success note">'
-                . t("settings.seen.reseted") . '</div>';
+            echo '<div class="btn btn-success note">' . t("settings.seen.reseted") . '</div>';
         }
 
         if (post("save")) {
@@ -56,7 +112,31 @@ class Settings extends View
             }
             echo '<div class="btn btn-success note">' . t("saved") . '</div>';
         }
-        ?>
+
+        if (Data::getKey("settings", "check_update") !== "0") {
+            ?>
+            <h1><?= t("settings.updates") ?></h1>
+            <form name="updater" method="post" action="">
+                <p>
+                    <?php
+                    $lastRelease = Data::getKey("updater", "github-last-release");
+                    if ($lastRelease && $lastRelease["version"] != Core::$version) {
+                        echo t(
+                            "settings.updates.available",
+                            ["versionA" => Core::$version, "versionB" => $lastRelease["version"]]
+                        );
+                        echo '<div class="spacer"></div>';
+                        echo '<input type="submit" name="do-update" value="'
+                            . t("settings.updates.doupdate") . '" class="btn btn-danger">';
+                    } else {
+                        echo t("settings.updates.up2date");
+                    }
+                    ?>
+                </p>
+            </form>
+            <?php
+        } ?>
+        <div class="spacer"></div>
         <h1><?= t("settings") ?></h1>
         <form name="settings" method="post" action="">
             <div class="title">
@@ -109,6 +189,17 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
+                <strong><?= t("settings.subtitlesfolder.title") ?></strong>
+                <small><?= t("settings.subtitlesfolder.desc") ?></small>
+            </div>
+            <div class="spacer">
+                <input type="text"
+                       placeholder="<?= t("settings.subtitlesfolder.title") ?>"
+                       name="setting[subtitles_folder]"
+                       class="form-control">
+            </div>
+
+            <div class="title spacer">
                 <strong><?= t("settings.speedfix.title") ?></strong>
                 <small><?= t("settings.speedfix.desc") ?></small>
             </div>
@@ -157,6 +248,17 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
+                <strong><?= t("settings.check_update.title") ?></strong>
+                <small><?= t("settings.check_update.desc") ?></small>
+            </div>
+            <div class="spacer">
+                <select class="selectpicker" name="setting[check_update]">
+                    <option value="1"><?= t("enabled") ?></option>
+                    <option value="0"><?= t("disabled") ?></option>
+                </select>
+            </div>
+
+            <div class="title spacer">
                 <strong><?= t("settings.language.title") ?></strong>
                 <small><?= t("settings.language.desc") ?></small>
             </div>
@@ -165,17 +267,6 @@ class Settings extends View
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
                 </select>
-            </div>
-
-            <div class="title spacer">
-                <strong><?= t("settings.subtitlesfolder.title") ?></strong>
-                <small><?= t("settings.subtitlesfolder.desc") ?></small>
-            </div>
-            <div class="spacer">
-                <input type="text"
-                       placeholder="<?= t("settings.subtitlesfolder.title") ?>"
-                       name="setting[subtitles_folder]"
-                       class="form-control">
             </div>
             <input type="submit" value="<?= t("save") ?>" name="save"
                    class="btn btn-default btn-info">

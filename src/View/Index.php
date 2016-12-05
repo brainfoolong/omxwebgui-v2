@@ -59,13 +59,14 @@ class Index extends View
             }
             $settings = Data::get("settings");
             $params = [
-                isset($settings["speedfix"]) && $settings["speedfix"] ? "1"
-                    : "0",
+                isset($settings["speedfix"]) && $settings["speedfix"] ? "1" : "0",
                 isset($settings["audioout"]) ? $settings["audioout"] : "hdmi",
                 isset($settings["initvol"]) ? $settings["initvol"] * 100 : "0",
-                isset($settings["subtitles_folder"]) ? "'" .
-                    $settings["subtitles_folder"] . "'" : false,
+                isset($settings["subtitles_folder"]) ? $settings["subtitles_folder"] : ""
             ];
+            foreach ($params as $key => $value) {
+                $params[$key] = escapeshellarg($value);
+            }
             $startCmd = escapeshellarg($path) . " " . implode(" ", $params);
             switch (post("shortcut")) {
                 case "start":
@@ -83,8 +84,8 @@ class Index extends View
                     break;
                 default:
                     $key = Omx::$hotkeys[$shortcut];
-                    Omx::sendCommand(escapeshellarg(isset($key["shortcut"])
-                        ? $key["shortcut"] : $shortcut), "pipe");
+                    $shortcut = isset($key["shortcut"]) ? $key["shortcut"] : $shortcut;
+                    Omx::sendCommand(escapeshellarg($shortcut), "pipe");
             }
             return;
         }
@@ -183,7 +184,7 @@ class Index extends View
      * Display recursive
      *
      * @param string $path
-     * @param bool   $recursive
+     * @param bool $recursive
      *
      * @return array
      */

@@ -12,13 +12,15 @@ then
 fi
 mkfifo $1
 
-# check if subtitle file exists in subtitle folder
-basename=$(basename $2)
-subtitle_path="$6/${basename%.*}.srt"
-if [ -e "$subtitle_path" ]; then
-  subtitle_argument="--subtitles $subtitle_path"
-  else
-  subtitle_argument=""
+# if subtitle folder isset
+subtitle_argument=""
+if [ "$6" != "" ]; then
+    basename=$(basename $2)
+    subtitle_path="$6/${basename%.*}.srt"
+    # check if subtitle file exists in subtitle folder
+    if [ -e "$subtitle_path" ]; then
+      subtitle_argument="--subtitles $subtitle_path"
+    fi
 fi
 
 omxplayer -b "$2" -o $4 --vol $5 $subtitle_argument < $1 &

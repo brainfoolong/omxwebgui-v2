@@ -76,6 +76,13 @@ class Translation
                 "settings.hidefolder.desc" => "Enable a more compact view for the playlist by hiding the folder names",
                 "settings.subtitlesfolder.title" => "Subtitles folder",
                 "settings.subtitlesfolder.desc" => "If you would like to keep your subtitle files in a separate place from your media files, you can provide the folder here.",
+                "settings.check_update.title" => "Automatic updater",
+                "settings.check_update.desc" => "Check for updates of OMXWEBGUI periodically and notify you when a new update is available. If disabled all update information will be hidden, including the updater.",
+                "settings.updates" => "Updater",
+                "settings.updates.available" => "A new version is available. You've installed {versionA} and the latest version is {versionB}. You can do an automatic update. Manually backup the full omxwebgui folder if you feel more comfortable than. The updater don't delete any files, it just override or add new files, so your data folder and settings are save. On the other hand, you can do the update manually as always. Just override all files with the new ones.",
+                "settings.updates.up2date" => "Your version is up 2 date. Awesome.",
+                "settings.updates.doupdate" => "Do automatic update now",
+                "settings.updates.success" => "Update successfull"
             ],
             "de" => [
                 "shortcut-q" => "Stoppe\nPlayer",

@@ -8,6 +8,7 @@ owg.language = "";
 owg.rootUrl = "";
 owg.folders = [];
 owg.settings = {};
+owg.version = "";
 
 $(document).ready(function () {
 
@@ -46,6 +47,11 @@ $(document).ready(function () {
     $(".spinner-container").remove();
     $(".page-content").removeClass("hidden");
 
+    checkForUpdate(function (data) {
+        if (data && data.version != owg.version) {
+            $(".top-logo .update").removeClass("hidden");
+        }
+    });
 });
 
 /**
@@ -72,7 +78,7 @@ function t(key, parameters) {
 
 /**
  * Display a loading spinner in a given element
- * @param el
+ * @param {string|jQuery} el
  */
 function spinner(el) {
     el = $(el);
@@ -81,5 +87,12 @@ function spinner(el) {
         '<div class="bounce2"></div>' +
         '<div class="bounce3"></div>' +
         '</div>');
+}
 
+/**
+ * Check for version update
+ * @param {=function} callback
+ */
+function checkForUpdate(callback) {
+    $.getJSON(owg.rootUrl + "/index.php/settings?check-update=1", callback);
 }

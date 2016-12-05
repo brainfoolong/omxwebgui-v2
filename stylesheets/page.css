@@ -486,16 +486,28 @@ h1 {
 }
 
 .top-logo{
+    white-space: nowrap;
     font-size: 85%;
     position: absolute;
     right:15px;
     top:20px;
+}
+
+.top-logo a.github{
+    display: inline-block;
     background: black;
     border-radius:5px;
     padding:5px;
     opacity:0.4;
 }
 
-.top-logo:hover{
+.top-logo a.github:hover{
     opacity:1;
+}
+
+.top-logo a.update{
+    display: inline-block;
+    border-radius:5px;
+    padding:5px;
+    background: #62c462;
 }
