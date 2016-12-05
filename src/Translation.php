@@ -79,7 +79,7 @@ class Translation
                 "settings.check_update.title" => "Automatic updater",
                 "settings.check_update.desc" => "Check for updates of OMXWEBGUI periodically and notify you when a new update is available. If disabled all update information will be hidden, including the updater.",
                 "settings.updates" => "Updater",
-                "settings.updates.available" => "A new version is available. You've installed {versionA} and the latest version is {versionB}. You can do an automatic update. Manually backup the full omxwebgui folder if you feel more comfortable than. The updater don't delete any files, it just override or add new files, so your data folder and settings are save. On the other hand, you can do the update manually as always. Just override all files with the new ones.",
+                "settings.updates.available" => "A new version is available. You've installed {versionA} and the latest version is {versionB}. You can do an automatic update. Manually backup the full omxwebgui folder if you feel more comfortable than. The updates will be loaded directly from github over the https protocol. The updater don't delete any files, it just override or add new files, so your data folder and settings are save. On the other hand, you can do the update manually as always. Just override all files with the new ones.",
                 "settings.updates.up2date" => "Your version is up 2 date. Awesome.",
                 "settings.updates.doupdate" => "Do automatic update now",
                 "settings.updates.success" => "Update successfull"
@@ -144,6 +144,13 @@ class Translation
                 "settings.hidefolder.desc" => "Aktiviere eine kompaktere Ansicht mit dieser Option",
                 "settings.subtitlesfolder.title" => "Untertitel Ordner",
                 "settings.subtitlesfolder.desc" => "Wenn Sie Ihre Untertitel-Dateien an einem anderen Ort aus Ihren Mediendateien speichern möchten, können Sie den Ordner hier angeben.",
+                "settings.check_update.title" => "Automatische Aktualisierungen",
+                "settings.check_update.desc" => "Überprüft regelmäßig auf neue Updates für OMXWEBGUI und benachrichtigt dich wenn es eine neue Version gibt. Wenn du das deaktivierst werden diese Checks und der Updater deaktiviert.",
+                "settings.updates" => "Updater",
+                "settings.updates.available" => "Eine neue Version ist verfügbar. Installiert ist {versionA} und die letzte ist {versionB}. Du kannst jetzt die automatische Aktualisierung durchführen. Mach ein Backup deiner OMXWEBGUI Installation wenn du dich dann besser fühlst. Die Updates werden direkt von Github über eine https Verbindung geladen. Der Updater löscht keine Dateien, es werden nur neue hinzugefügt und vorhandene überschrieben. Deine Einstellungen sind also sicher. Auf der anderen Seite kannst du natürlich auch ein manuelles Update machen indem du einfach alle Dateien mit den neuen überschreibst.",
+                "settings.updates.up2date" => "Deine Version ist aktuell. Leiwand.",
+                "settings.updates.doupdate" => "Jetzt automatisches Update durchführen",
+                "settings.updates.success" => "Update erfolgreich"
             ]
         ];
 }

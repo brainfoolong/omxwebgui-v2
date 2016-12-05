@@ -31,9 +31,15 @@ class Settings extends View
             if ($lastRelease) {
                 Github::download($lastRelease["zipball_url"], $tmpFile);
                 if (file_exists($tmpFile)) {
-                    $folder = dirname(dirname(__DIR__));
-                    exec("unzip -u " . $tmpFile . " -d " . escapeshellarg($folder) . " -o ");
-                    unlink($tmpFile);
+                    $updateFolder = dirname(dirname(__DIR__)) . "/tmp/update";
+                    $cmd = "unzip -u -o " . escapeshellarg($tmpFile) . " -d " . escapeshellarg($updateFolder);
+                    // copy all files and folders
+                    $cmd .= " && cp -Rf " . escapeshellarg($updateFolder . "/*/.") . " " . escapeshellarg(dirname(dirname(__DIR__)));
+                    // remove update folder
+                    $cmd .= " && rm -Rf " . escapeshellarg($updateFolder);
+                    // remove update.zip
+                    $cmd .= " && rm  " . escapeshellarg($tmpFile);
+                    exec($cmd);
                 }
             }
             header("Location: " . View::link("settings") . "?update-done=1");
@@ -41,7 +47,7 @@ class Settings extends View
         }
 
         // check if new version exists
-        if (get("check_update")) {
+        if (get("check-update")) {
             $lastRelease = Data::getKey("updater", "github-last-release");
             if (Data::getKey("settings", "check_update") !== "0") {
                 // do update checks only each hour
