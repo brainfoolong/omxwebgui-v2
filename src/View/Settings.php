@@ -32,9 +32,11 @@ class Settings extends View
                 Github::download($lastRelease["zipball_url"], $tmpFile);
                 if (file_exists($tmpFile)) {
                     $updateFolder = dirname(dirname(__DIR__)) . "/tmp/update";
-                    $cmd = "unzip -u -o " . escapeshellarg($tmpFile) . " -d " . escapeshellarg($updateFolder);
+                    $cmd = "unzip -u -o " . escapeshellarg($tmpFile) . " -d "
+                        . escapeshellarg($updateFolder);
                     // copy all files and folders
-                    $cmd .= " && cp -Rf " . escapeshellarg($updateFolder . "/*/.") . " " . escapeshellarg(dirname(dirname(__DIR__)));
+                    $cmd .= " && cp -Rf " . $updateFolder . "/*/. "
+                        . escapeshellarg(dirname(dirname(__DIR__)));
                     // remove update folder
                     $cmd .= " && rm -Rf " . escapeshellarg($updateFolder);
                     // remove update.zip
@@ -57,9 +59,12 @@ class Settings extends View
             if (Data::getKey("settings", "check_update") !== "0") {
                 // do update checks only each hour
                 $lastUpdate = Data::getKey("updater", "last-check");
-                if (get("force") || !$lastUpdate || $lastUpdate < time() - 3600) {
+                if (get("force") || !$lastUpdate
+                    || $lastUpdate < time() - 3600
+                ) {
                     Data::setKey("updater", "last-check", time());
-                    $apiData = Github::apiRequest("https://api.github.com/repos/brainfoolong/omxwebgui-v2/releases");
+                    $apiData
+                        = Github::apiRequest("https://api.github.com/repos/brainfoolong/omxwebgui-v2/releases");
                     if ($apiData) {
                         if (isset($apiData[0]["tag_name"])) {
                             $lastRelease = [
@@ -88,12 +93,14 @@ class Settings extends View
     public function getContent()
     {
         if (get("update-done")) {
-            echo '<div class="btn btn-success note">' . t("settings.updates.success") . '</div>';
+            echo '<div class="btn btn-success note">'
+                . t("settings.updates.success") . '</div>';
         }
 
         if (post("delete-seen")) {
             Data::set("filesseen", null);
-            echo '<div class="btn btn-success note">' . t("settings.seen.reseted") . '</div>';
+            echo '<div class="btn btn-success note">'
+                . t("settings.seen.reseted") . '</div>';
         }
 
         if (post("save")) {
@@ -130,15 +137,22 @@ class Settings extends View
             <form name="updater" method="post" action="">
                 <p>
                     <?php
-                    $lastRelease = Data::getKey("updater", "github-last-release");
-                    if ($lastRelease && $lastRelease["version"] != Core::$version) {
+                    $lastRelease = Data::getKey("updater",
+                        "github-last-release");
+                    if ($lastRelease
+                        && $lastRelease["version"] != Core::$version
+                    ) {
                         echo t(
                             "settings.updates.available",
-                            ["versionA" => Core::$version, "versionB" => $lastRelease["version"]]
+                            [
+                                "versionA" => Core::$version,
+                                "versionB" => $lastRelease["version"]
+                            ]
                         );
                         echo '<div class="spacer"></div>';
                         echo '<input type="submit" name="do-update" value="'
-                            . t("settings.updates.doupdate") . '" class="btn btn-danger">';
+                            . t("settings.updates.doupdate")
+                            . '" class="btn btn-danger">';
                     } else {
                         echo t("settings.updates.up2date");
                     }
