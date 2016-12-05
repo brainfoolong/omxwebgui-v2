@@ -13,6 +13,8 @@ This web GUI give you easy control of your OMX player, directly via your browser
 * Permanent playlist - Just add folders, files and streams
 * Search for filenames with wildcards
 * Mark of already viewed videos
+* Auto updater
+* Subtitles in a separate folder, if you wish
 
 ## How to contribute
 Feel free to send pull requests. Create an issue for a new feature BEFORE you do some coding. We should talk about that before. Translations are pretty straight forward, you can just add them without an issue. 
