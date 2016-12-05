@@ -57,7 +57,6 @@ class Omx
             . escapeshellarg(self::$fifoFile) . " " . $omxcmd
             . " > /dev/null 2>&1";
         $output = $return = "";
-        var_dump($cmd);
         exec($cmd, $output, $return);
     }
 }
