@@ -40,6 +40,11 @@ class Settings extends View
                     // remove update.zip
                     $cmd .= " && rm  " . escapeshellarg($tmpFile);
                     exec($cmd);
+                    // remove release update information
+                    Data::set(
+                        "updater",
+                        null
+                    );
                 }
             }
             header("Location: " . View::link("settings") . "?update-done=1");
@@ -56,7 +61,7 @@ class Settings extends View
                     Data::setKey("updater", "last-check", time());
                     $apiData = Github::apiRequest("https://api.github.com/repos/brainfoolong/omxwebgui-v2/releases");
                     if ($apiData) {
-                        if (isset($apiData[0]["tag_name"]) && $apiData[0]["tag_name"] != Core::$version) {
+                        if (isset($apiData[0]["tag_name"])) {
                             $lastRelease = [
                                 "version" => $apiData[0]["tag_name"],
                                 "published_at" => $apiData[0]["published_at"],
