@@ -22,7 +22,9 @@ Feel free to send pull requests. Create an issue for a new feature BEFORE you do
 ## One line installer
 You can install all requirements and the web gui manually or with our nifthy install script.
 
+```
 wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/install.sh && clear && sh install.sh
+```
 
 ## Requirements
 It is strongly recommended to use it just with the php-cli. Do not use it in combination with a webserver, it will not work. Just use it as described bellow. Only PHP is required. It is also PHP7 compatible. Try second if first package is not available.
