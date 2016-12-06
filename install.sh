@@ -21,7 +21,7 @@ echo "Are you want to install php5-cli now (sudo)? [y/n]"
 
 read p
 
-if [ "$p" = "y" ] && [ "$p" = "Y" ] ; then
+if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
     sudo apt-get install php5-cli
 fi
 
@@ -62,13 +62,13 @@ echo "Enable autostart for the OMXWEBGUI server"
 echo "This will add a new entry to crontab"
 echo "Are you want to enable autostart now? [y/n]"
 
-if [ "$p" = "y" ] && [ "$p" = "Y" ] ; then
+if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
     (crontab -l 2>/dev/null; echo "@reboot php -S 0.0.0.0:$port -t $path > /dev/null 2>&1 &") | crontab -
 fi
 
 echo "Start OMXWEBGUI server now? [y/n]"
 
-if [ "$p" = "y" ] && [ "$p" = "Y" ] ; then
+if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
     `php -S 0.0.0.0:$port -t $path > /dev/null 2>&1 &`
 fi
 
