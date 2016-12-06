@@ -17,12 +17,14 @@ fi
 
 echo "OMXWEBGUI runs with php5 command line interface"
 echo "No separate webserver required and recommended"
+echo "Maybe you will some errors because of non existing packages, ignore it"
 echo "Are you want to install php5-cli now (sudo)? [y/n]"
 
 read p
 
 if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
-    sudo apt-get install php5-cli
+    sudo apt-get install -qq -y php-cli
+    sudo apt-get install -qq -y php5-cli
 fi
 
 echo "OMXWEBGUI runs as a php-cli server which requires a port to be defined"
