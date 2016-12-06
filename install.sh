@@ -68,10 +68,9 @@ fi
 
 if [ ! -d "$path" ] ; then
     mkdir $path
-    exit
 fi
 
-mkdir "$path/tmp"
+mkdir $path/tmp
 
 wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/updater.php
 php -f updater.php
