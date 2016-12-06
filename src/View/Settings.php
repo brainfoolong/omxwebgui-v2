@@ -26,29 +26,7 @@ class Settings extends View
     public function load()
     {
         if (post("do-update")) {
-            $tmpFile = dirname(dirname(__DIR__)) . "/tmp/update.zip";
-            $lastRelease = Data::getKey("updater", "github-last-release");
-            if ($lastRelease) {
-                Github::download($lastRelease["zipball_url"], $tmpFile);
-                if (file_exists($tmpFile)) {
-                    $updateFolder = dirname(dirname(__DIR__)) . "/tmp/update";
-                    $cmd = "unzip -u -o " . escapeshellarg($tmpFile) . " -d "
-                        . escapeshellarg($updateFolder);
-                    // copy all files and folders
-                    $cmd .= " && cp -Rf " . $updateFolder . "/*/. "
-                        . escapeshellarg(dirname(dirname(__DIR__)));
-                    // remove update folder
-                    $cmd .= " && rm -Rf " . escapeshellarg($updateFolder);
-                    // remove update.zip
-                    $cmd .= " && rm  " . escapeshellarg($tmpFile);
-                    exec($cmd);
-                    // remove release update information
-                    Data::set(
-                        "updater",
-                        null
-                    );
-                }
-            }
+            file_get_contents(View::$rootUrl."/updater.php");
             header("Location: " . View::link("settings") . "?update-done=1");
             die();
         }

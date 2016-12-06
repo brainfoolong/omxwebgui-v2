@@ -78,7 +78,7 @@ namespace Nullix\Omxwebgui {
          *
          * @var string
          */
-        public static $version = "0.10.4";
+        public static $version = "0.10.5";
 
         /**
          * Initialize
