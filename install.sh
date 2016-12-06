@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo ""
+echo "==========================================="
 echo "Welcome to the guided OMXWEBGUI installation script"
 echo "The script requires 'sudo' at one point, to install php5-cli"
 echo "Anyway, you can install all manually by following the steps on"
@@ -16,10 +18,9 @@ if [ "$p" != "y" ] && [ "$p" != "Y" ] ; then
     exit 1
 fi
 
+
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "OMXWEBGUI runs with php5 command line interface"
 echo "No separate webserver required and recommended"
 echo "Maybe you will some errors because of non existing packages, ignore it"
@@ -33,10 +34,9 @@ if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
     sudo apt-get install -qq -y php5-cli
 fi
 
+
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "OMXWEBGUI runs as a php-cli server which requires a port to be defined"
 echo "Default port is 4321"
 echo "Leave it empty if you stick with the default or change it to a number you want"
@@ -50,9 +50,7 @@ if [ "$p" != "" ] ; then
 fi
 
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "Downloading and unpacking OMXWEBGUI to disk"
 echo "Choose directory path, default: ~/omxwebgui"
 echo "Leave it empty if you stick with the default"
@@ -76,9 +74,7 @@ wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/updater.
 php -f updater.php
 
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "Enable autostart for the OMXWEBGUI server"
 echo "This will add a new entry to crontab"
 echo "Are you want to enable autostart now? [y/n]"
@@ -91,9 +87,7 @@ if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
 fi
 
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "Start OMXWEBGUI server now? [y/n]"
 
 read p
@@ -104,9 +98,7 @@ if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
 fi
 
 echo ""
-echo ""
-echo ""
-echo ""
+echo "==========================================="
 echo "All files have been installed!"
 echo "Open http://iptoyourpi:$port in your browser"
 echo "Have fun with this application. You are awesome."
