@@ -23,7 +23,7 @@ echo ""
 echo "OMXWEBGUI runs with php5 command line interface"
 echo "No separate webserver required and recommended"
 echo "Maybe you will some errors because of non existing packages, ignore it"
-echo "Are you want to install php5-cli now (sudo)? [y/n]"
+echo "Are you want to install php-cli now (sudo)? [y/n]"
 
 read p
 echo ""
@@ -61,7 +61,7 @@ echo "Given directory should be empty or non existing"
 read p
 echo ""
 
-path="~/omxwebgui"
+path=~/omxwebgui
 if [ "$p" != "" ] ; then
     path=$p
 fi

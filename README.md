@@ -25,9 +25,12 @@ You can install all requirements and the web gui manually or with our nifthy ins
 wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/install.sh && clear && sh install.sh
 
 ## Requirements
-It is strongly recommended to use it just with the php-cli. Do not use it in combination with a webserver, it will not work. Just use it as described bellow. Only PHP is required. It is also PHP7 compatible.
+It is strongly recommended to use it just with the php-cli. Do not use it in combination with a webserver, it will not work. Just use it as described bellow. Only PHP is required. It is also PHP7 compatible. Try second if first package is not available.
 
-`sudo apt-get install php5-cli`
+```
+sudo apt-get install php5-cli
+sudo apt-get install php-cli
+```
 
 ## Installation
 Download/Clone/Unpack the whole script to a folder you like. Create a php webserver listening on port 4321, you can change the port to whatever you want. Start this with the same user that you need to play the videos. Please do not use apache or other server's to run the php script, it will probably not work.
