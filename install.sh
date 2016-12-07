@@ -21,7 +21,7 @@ fi
 
 echo ""
 echo "==========================================="
-echo "OMXWEBGUI runs with php5 command line interface"
+echo "OMXWEBGUI runs with php command line interface"
 echo "No separate webserver required and recommended"
 echo "Maybe you will some errors because of non existing packages, ignore it"
 echo "Are you want to install php-cli now (sudo)? [y/n]"
@@ -31,9 +31,7 @@ echo ""
 
 if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
     sudo apt-get install -qq -y php-cli php-mbstring
-    sudo apt-get install -qq -y php-mbstring
-    sudo apt-get install -qq -y php5-cli
-    sudo apt-get install -qq -y php5-mbstring
+    sudo apt-get install -qq -y php5-cli php5-mbstring
 fi
 
 
