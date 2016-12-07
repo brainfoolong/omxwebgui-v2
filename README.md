@@ -30,8 +30,10 @@ wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/install.
 It is strongly recommended to use it just with the php command line. Do not use it in combination with a webserver, it will not work. Just use it as described bellow. Only PHP is required. It is also PHP7 compatible. Try all, depending on your system some packages are not available but that is no problem.
 
 ```
-sudo apt-get install php5-cli php5-mbstring
-sudo apt-get install php-cli php-mbstring
+sudo apt-get install php-cli
+sudo apt-get install php-mbstring
+sudo apt-get install php5-cli
+sudo apt-get install php5-mbstring
 ```
 
 ## Installation

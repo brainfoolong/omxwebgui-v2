@@ -30,8 +30,10 @@ read p
 echo ""
 
 if [ "$p" = "y" ] || [ "$p" = "Y" ] ; then
-    sudo apt-get install -qq -y php-cli php-mbstring
-    sudo apt-get install -qq -y php5-cli php5-mbstring
+    sudo apt-get install -qq -y php-cli
+    sudo apt-get install -qq -y php-mbstring
+    sudo apt-get install -qq -y php5-cli
+    sudo apt-get install -qq -y php5-mbstring
 fi
 
 
