@@ -22,7 +22,8 @@ if ($match
     View::$rootUrl = $match[1];
 }
 
-View::$rootUrl = rtrim(View::$rootUrl, "/");
+View::$rootUrl = rtrim("http://" . $_SERVER["HTTP_HOST"] . "/"
+    . trim(View::$rootUrl, "/ "), "/");
 $viewClass = "Nullix\\Omxwebgui\\View\\" . $viewClass;
 
 $view = new $viewClass;
