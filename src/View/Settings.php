@@ -26,7 +26,8 @@ class Settings extends View
     public function load()
     {
         if (post("do-update")) {
-            file_get_contents(View::$rootUrl."/updater.php");
+            exec("php -f " . escapeshellarg(dirname(dirname(__DIR__))
+                    . "/updater.php"));
             header("Location: " . View::link("settings") . "?update-done=1");
             die();
         }
