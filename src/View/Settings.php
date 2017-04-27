@@ -233,6 +233,7 @@ class Settings extends View
                     <option value="hdmi">HDMI</option>
                     <option value="local">Local</option>
                     <option value="both">Both</option>
+					<option value="alsa">ALSA</option>
                 </select>
             </div>
 
