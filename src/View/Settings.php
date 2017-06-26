@@ -253,6 +253,16 @@ class Settings extends View
             </div>
 
             <div class="title spacer">
+                <strong><?= t("settings.display.title") ?></strong>
+                <small><?= t("settings.display.desc") ?></small>
+            </div>
+            <div class="spacer">
+                <input type="text"
+                       name="setting[display]"
+                       class="form-control">
+            </div>
+
+            <div class="title spacer">
                 <strong><?= t("settings.check_update.title") ?></strong>
                 <small><?= t("settings.check_update.desc") ?></small>
             </div>

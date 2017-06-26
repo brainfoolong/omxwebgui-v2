@@ -13,17 +13,20 @@ fi
 mkfifo $1
 
 # if subtitle folder isset
-subtitle_argument=""
-if [ "$6" != "" ]; then
+params=""
+if [ "$6" != "-" ]; then
     basename=$(basename $2)
     subtitle_path="$6/${basename%.*}.srt"
-    # check if subtitle file exists in subtitle folder
     if [ -e "$subtitle_path" ]; then
-      subtitle_argument="--subtitles $subtitle_path"
+      params="$params --subtitles $subtitle_path "
     fi
 fi
+# check if display parameter isset
+if [ "$7" != "-" ]; then
+  params="$params --display $7"
+fi
 
-omxplayer -b "$2" -o $4 --vol $5 $subtitle_argument < $1 &
+omxplayer -b "$2" -o $4 --vol $5 $params < $1 &
 echo -n "." > $1 &
 
 # fix for double play speed at start
