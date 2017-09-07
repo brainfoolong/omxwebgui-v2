@@ -46,6 +46,9 @@ class Index extends View
                     $data["path"] = $activeFile;
                 }
             }
+
+           $data["duration"] = $this->exec_dbus("getduration","");
+            $data["position"] = $this->exec_dbus("getposition","");
             echo json_encode($data);
             return;
         }
@@ -127,6 +130,21 @@ class Index extends View
     }
 
     /**
+     * @param $command string dbus command to execute
+     * @param $value integer optional param to send
+     */
+    private function exec_dbus($command, $value) {
+        $output = $return = "";
+        $cmd = escapeshellcmd(dirname(dirname(__DIR__)) . "/dbus.sh $command $value");
+        exec($cmd, $output, $return);
+        if (isset($output) && is_array($output)) {
+            return $output[0];
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Get content for the page
      */
     public function getContent()
@@ -171,6 +189,25 @@ class Index extends View
             </div>
         </div>
         <div class="note bg-primary"><span class="player-status">-</span></div>
+        <!-- Custom Video Controls -->
+        <div class="video-component" id="videoComponent">
+
+            <div class="video-controls" id="videoControls" dir="ltr" role="group">
+                <div class="icon-spinner anim-spin video-preloader" id="videoPreloader"></div>
+
+                <div class="video-progress-container">
+                    <div class="video-progress-fill" id="videoProgressFill"></div>
+                    <input type="range" min="0" title="Press the left or right arrow to control the video" value="0" id="videoProgressScrubber" />
+                </div>
+                <button disabled title="Play/Pause Video" class="icon-pause" id="playPauseBtn"><span class="glyphicon glyphicon-play"></span></button>
+
+                <span class="video-progress-text" id="videoProgressText">00:00 / 00:00</span>
+                <div class="pull-right video-utilities">
+                    <button  title="Mute the video volume" class="icon-volume-high" id="videoVolumeBtn"><span class="glyphicon glyphicon-volume-up"></span></button>
+                </div>
+            </div>
+        </div>
+        <!-- END Custom Video Controls -->
         <div class="input-group spacer">
             <div class="input-group-addon"><img
                         src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"

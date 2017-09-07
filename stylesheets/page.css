@@ -511,3 +511,477 @@ h1 {
     padding:5px;
     background: #62c462;
 }
+
+
+/*******
+Video Player Controls
+ ******/
+
+
+.video-component {
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Custom Select Element Styles */
+    /* For Spartan */
+    /* For IE 10 & 11 */
+    display: none;
+}
+.video-component:-webkit-full-screen > .video-player-menu {
+    position: absolute;
+    top: 0;
+}
+.video-component:-moz-full-screen > .video-player-menu {
+    position: absolute;
+    top: 0;
+}
+.video-component:-ms-fullscreen > .video-player-menu {
+    position: absolute;
+    top: 0;
+}
+.video-component:fullscreen > .video-player-menu {
+    position: absolute;
+    top: 0;
+}
+.video-component:-webkit-full-screen > .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.video-component:-moz-full-screen > .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.video-component:-ms-fullscreen > .video-controls {
+    position: absolute !important;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.video-component:fullscreen > .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.video-component:-webkit-full-screen > .video-player {
+    position: absolute;
+    top: 0;
+    height: 90vh;
+}
+.video-component:-moz-full-screen > .video-player {
+    position: absolute;
+    top: 0;
+    height: 90vh;
+}
+.video-component:-ms-fullscreen > .video-player {
+    position: absolute;
+    top: 0;
+    height: 90vh;
+}
+.video-component:fullscreen > .video-player {
+    position: absolute;
+    top: 0;
+    height: 90vh;
+}
+.video-component .video-player {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.video-component .video-player[disabled] {
+    cursor: not-allowed;
+}
+.video-component .video-player::-webkit-media-controls {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-enclosure {
+    display: none;
+    overflow: hidden;
+}
+.video-component .video-player::-webkit-media-controls-panel {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-play-button {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-timeline {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-current-time-display {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-mute-button {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-toggle-closed-captions-button {
+    display: none;
+}
+.video-component .video-player::-webkit-media-controls-volume-slider {
+    display: none;
+}
+.video-component .video-player::-internal-controls-download-button {
+    display: none;
+}
+.video-component .video-player::-webkit-controls-download-button {
+    display: none;
+}
+.video-component .video-player::cue {
+    /*Closed Captions styling*/
+    /* text color doesn't work on FF or IE */
+}
+.video-component .video-player::backdrop {
+    background-color: #000;
+}
+.video-component .video-controls {
+    display: block;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 7px 7px 7px;
+    position: relative;
+    width: 100%;
+    /* Range input styles for Safari, Chrome and other webkit ------------------ */
+    /* Range input styles for Firefox ----------------------- */
+    /* Range input styles for Internet Explorer ----------------------- */
+}
+.video-component .video-controls .video-preloader {
+    display: none;
+    color: #fff;
+    font-size: 90px;
+    position: absolute;
+    z-index: 999;
+    top: -200%;
+    left: 40%;
+    text-align: center;
+}
+.video-component .video-controls button {
+    width: 35px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    background: none;
+    padding: 0;
+    outline: none;
+    border: 2px solid #555;
+    display: inline-block;
+}
+.video-component .video-controls button[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}
+.video-component .video-controls button:focus {
+    border: 2px solid #fff;
+    outline: none;
+}
+.video-component .video-controls .video-progress-text {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+    cursor: default;
+    letter-spacing: .5px;
+    font-weight: normal;
+    margin-left: 4px;
+}
+.video-component .video-controls .video-progress-text[disabled] {
+    color: #666;
+}
+.video-component .video-controls .video-utilities {
+    /*styles for elements in the video utility buttons area */
+}
+@media all and (-ms-high-contrast: none) {
+    .video-component .video-controls {
+        /* IE10 */
+        /* IE11 */
+    }
+    .video-component .video-controls .fullscreen-btn {
+        display: none;
+    }
+    .video-component .video-controls *::-ms-backdrop, .video-component .video-controls .fullscreen-btn {
+        display: inline-block;
+    }
+}
+.video-component .video-controls .fullscreen-btn {
+    display: none\9;
+}
+.video-component .video-controls #videoVolumeBtn .video-volume-slider {
+    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    transition: width .5s;
+    -webkit-transition: width .5s;
+    transform-origin: 75px 75px;
+    transform: rotate(-90deg);
+}
+.video-component .video-controls #videoVolumeBtn:hover .video-volume-slider {
+    width: auto;
+    height: 200px;
+    transition: width .5s;
+    -webkit-transition: width .5s;
+    transition: height .5s;
+    -webkit-transition: height .5s;
+    display: inline-block;
+}
+.video-component .video-controls .video-progress-container {
+    height: 25px;
+    margin: 0;
+    padding: 0;
+}
+@media all and (-ms-high-contrast: none) {
+    .video-component .video-controls .video-progress-container {
+        height: 48px;
+    }
+}
+.video-component .video-controls .video-buffer-progress-fill {
+    height: 5px;
+    width: 0;
+    background-color: yellow;
+    margin-top: 10px;
+    position: relative;
+    z-index: 998;
+    pointer-events: none;
+    opacity: .3;
+    display: none\9;
+}
+@media all and (-ms-high-contrast: none) {
+    .video-component .video-controls .video-buffer-progress-fill {
+        display: none;
+    }
+}
+@-moz-document url-prefix() {
+    .video-component .video-controls .video-buffer-progress-fill {
+        margin-top: 7px;
+    }
+}
+.video-component .video-controls .video-progress-fill {
+    height: 5px;
+    width: 0;
+    background-color: #3485e7;
+    position: relative;
+    z-index: 999;
+    pointer-events: none;
+    display: none\9;
+}
+@media all and (-ms-high-contrast: none) {
+    .video-component .video-controls .video-progress-fill {
+        display: none !important;
+    }
+}
+@media all and (-ms-accelerator: true) {
+    .video-component .video-controls .video-progress-fill {
+        display: none;
+        visiblity: hidden !important;
+    }
+}
+@-moz-document url-prefix() {
+    .video-component .video-controls .video-progress-fill {
+        top: -2px;
+    }
+}
+.video-component .video-controls .video-progress-fill.live {
+    background-color: red !important;
+    width: 100% !important;
+}
+.video-component .video-controls .video-track {
+    height: 5px;
+    width: 100%;
+    background-color: #272727;
+    display: inline-block;
+    cursor: pointer;
+    margin: 2px 0;
+}
+.video-component .video-controls input[type=range] {
+    position: relative;
+    -webkit-appearance: none;
+    /*removes default webkit styles*/
+    border: none;
+    /*fix for FF unable to apply focus style bug */
+    width: 100%;
+    /*required for proper track sizing in FF*/
+    top: -14px;
+}
+.video-component .video-controls input[type=range]:focus {
+    outline: none;
+}
+.video-component .video-controls input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #272727;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+}
+.video-component .video-controls input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+.video-component .video-controls input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3485e7;
+    margin-top: -8px;
+    left: 0;
+    position: relative;
+    z-index: 999;
+    cursor: ew-resize;
+}
+.video-component .video-controls input[type=range][disabled]::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]:focus::-webkit-slider-thumb {
+    border: 2px solid #fff;
+    outline: none;
+}
+.video-component .video-controls input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #181818;
+    cursor: pointer;
+}
+.video-component .video-controls input[type=range][disabled]::-webkit-slider-runnable-track {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    background: #181818;
+    border: none;
+    border-radius: 3px;
+}
+.video-component .video-controls input[type=range][disabled]::-moz-range-track {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 20px;
+    width: 20px;
+    margin-top: -20px;
+    border-radius: 50%;
+    background: #3485e7;
+    position: relative;
+    z-index: 999;
+    cursor: ew-resize;
+}
+.video-component .video-controls input[type=range][disabled]::-moz-range-thumb {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]:focus::-moz-range-thumb {
+    border: 2px solid #fff;
+    outline: none;
+}
+.video-component .video-controls input[type=range]:-moz-focusring {
+    outline: none;
+}
+.video-component .video-controls input[type=range]::-ms-track {
+    width: 100%;
+    height: 7px;
+    cursor: pointer;
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+    /*remove default tick marks*/
+    color: transparent;
+}
+.video-component .video-controls input[type=range][disabled]::-ms-track {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]::-ms-tooltip {
+    display: none;
+}
+.video-component .video-controls input[type=range]::-ms-thumb {
+    border: 2px solid transparent;
+    height: 14px;
+    width: 14px;
+    border-radius: 100%;
+    background: #3485e7;
+    position: relative;
+    z-index: 999;
+    cursor: ew-resize;
+    margin-top: 0;
+}
+.video-component .video-controls input[type=range]:focus::-ms-thumb {
+    border: 2px solid #fff;
+    outline: none;
+}
+.video-component .video-controls input[type=range][disabled]::-ms-thumb {
+    cursor: not-allowed;
+}
+.video-component .video-controls input[type=range]::-ms-fill-lower {
+    background: #3485e7;
+    border-radius: 10px;
+}
+.video-component .video-controls input[type=range]::-ms-fill-upper {
+    background: #181818;
+    border-radius: 10px;
+}
+.video-component .video-controls input[type=range]:focus::-ms-fill-lower {
+    background: #3485e7;
+}
+.video-component .video-controls input[type=range]:focus::-ms-fill-upper {
+    background: #181818;
+}
+.video-component select::-ms-expand {
+    border: 0;
+    background: none;
+    display: none;
+}
+.video-component select {
+    position: relative;
+    color: #fff;
+    border: none;
+    z-index: 999;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0 35px 0 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOiNGRkZGRkY7fTwvc3R5bGU+PHBhdGggY2xhc3M9InN0MCIgZD0iTTk2LDk2TDAsMTkybDI1NiwyNTZsMjU2LTI1NmwtOTYtOTZMMjU2LDI1Nkw5Niw5NnoiLz48L3N2Zz4=") right 10px top 12px no-repeat rgba(0, 0, 0, 0.3);
+    background-size: 15px;
+    outline-color: #e7a614;
+    cursor: pointer;
+    width: 100%;
+    min-width: 69px;
+    padding-right: 0 \9;
+    display: block;
+}
+.video-component select:focus {
+    border: 2px solid #fff;
+    outline: none;
+}
+.video-component select:hover {
+    cursor: pointer;
+}
+.video-component select[disabled] {
+    display: none;
+    cursor: not-allowed;
+}
+@supports (-ms-accelerator: true) {
+    .video-component {
+        background-size: 30%;
+        background-position: right 5px center;
+    }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .video-component select,
+    .video-component select[disabled] {
+        background-size: 30%;
+        background-position: right 5px center;
+    }
+}
+

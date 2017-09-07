@@ -10,6 +10,9 @@ $(function () {
             switch (data.status) {
                 case "playing":
                     status.html(t("playing") + ' <span>' + data.path + '</span>');
+                    $('#videoComponent').show();
+                    $('#videoProgressScrubber').prop('max',data.duration);
+                    $('#videoProgressScrubber').val(data.position);
                     break;
                 case "stopped":
                     status.html(t("stopped"));
