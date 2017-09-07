@@ -47,8 +47,8 @@ class Index extends View
                 }
             }
 
-           $data["duration"] = $this->exec_dbus("getduration","");
-            $data["position"] = $this->exec_dbus("getposition","");
+            $data["extra"] = json_decode($this->exec_dbus("getstatus",""));
+
             echo json_encode($data);
             return;
         }
@@ -126,6 +126,25 @@ class Index extends View
             echo json_encode($json);
             return;
         }
+
+        if (post("action") == "setposition") {
+            $data["result"] = $this->exec_dbus("setposition",post("value"));
+            echo json_encode($data);
+            return ;
+        }
+
+        if (post("action") == "setvolume") {
+            $data["result"] = $this->exec_dbus("setvolume",post("value"));
+            echo json_encode($data);
+            return ;
+        }
+        if (post("action") == "toggleplay") {
+            $data["result"] = $this->exec_dbus("toggleplay","");
+            echo json_encode($data);
+            return ;
+        }
+
+
         parent::load();
     }
 
@@ -137,7 +156,7 @@ class Index extends View
         $output = $return = "";
         $cmd = escapeshellcmd(dirname(dirname(__DIR__)) . "/dbus.sh $command $value");
         exec($cmd, $output, $return);
-        if (isset($output) && is_array($output)) {
+        if (isset($output) && is_array($output) && count($output) > 0 ) {
             return $output[0];
         } else {
             return 0;
@@ -193,17 +212,15 @@ class Index extends View
         <div class="video-component" id="videoComponent">
 
             <div class="video-controls" id="videoControls" dir="ltr" role="group">
-                <div class="icon-spinner anim-spin video-preloader" id="videoPreloader"></div>
-
                 <div class="video-progress-container">
                     <div class="video-progress-fill" id="videoProgressFill"></div>
-                    <input type="range" min="0" title="Press the left or right arrow to control the video" value="0" id="videoProgressScrubber" />
+                    <input type="range" min="0" title="" value="0" id="videoProgressScrubber" />
                 </div>
-                <button disabled title="Play/Pause Video" class="icon-pause" id="playPauseBtn"><span class="glyphicon glyphicon-play"></span></button>
+                <button title="Play/Pause Video" class="icon-pause" id="playPauseBtn"><span id="videoPlayPauseIcon" class="glyphicon glyphicon-play"></span></button>
 
-                <span class="video-progress-text" id="videoProgressText">00:00 / 00:00</span>
+                <span class="video-progress-text" id="videoProgressText"><span id="videoCurrentTime">00:00</span> / <span id="videoDurationTime">00:00</span></span>
                 <div class="pull-right video-utilities">
-                    <button  title="Mute the video volume" class="icon-volume-high" id="videoVolumeBtn"><span class="glyphicon glyphicon-volume-up"></span></button>
+                    <button  title="Mute/UnMute the video volume" class="icon-volume-high" id="videoVolumeBtn"><span id="videoVolumeIcon" class="glyphicon glyphicon-volume-up"></span></button>
                 </div>
             </div>
         </div>

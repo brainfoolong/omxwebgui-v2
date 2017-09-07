@@ -17,6 +17,28 @@ getduration)
   echo $duration
   ;;
 
+getstatus)
+	duration=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:"org.mpris.MediaPlayer2.Player" string:"Duration"`
+	[ $? -ne 0 ] && exit 1
+	duration="$(awk '{print $2}' <<< "$duration")"
+
+	position=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:"org.mpris.MediaPlayer2.Player" string:"Position"`
+	[ $? -ne 0 ] && exit 1
+	position="$(awk '{print $2}' <<< "$position")"
+
+	playstatus=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:"org.mpris.MediaPlayer2.Player" string:"PlaybackStatus"`
+	[ $? -ne 0 ] && exit 1
+	playstatus="$(sed 's/^ *//;s/ *$//;' <<< "$playstatus")"
+
+	 volume=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Volume`
+      [ $? -ne 0 ] && exit 1
+      volume="$(awk '{print $2}' <<< "$volume")"
+
+	paused="true"
+	[ "$playstatus" == "Playing" ] && paused="false"
+	echo "{\"Duration\": \"$duration\", \"Position\": \"$position\", \"Paused\": $paused, \"Volume\": \"$volume\"}"
+	;;
+
 getposition)
   position=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Position`
   [ $? -ne 0 ] && exit 1
@@ -32,7 +54,7 @@ getplaystatus)
   ;;
 
 getvolume)
-  volume=`dbus-send --print-reply=double --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Volume`
+  volume=`dbus-send --print-reply=literal --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Volume`
   [ $? -ne 0 ] && exit 1
   volume="$(awk '{print $2}' <<< "$volume")"
   echo $volume

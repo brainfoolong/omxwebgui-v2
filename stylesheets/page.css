@@ -531,6 +531,8 @@ Video Player Controls
     /* For IE 10 & 11 */
     display: none;
 }
+
+
 .video-component:-webkit-full-screen > .video-player-menu {
     position: absolute;
     top: 0;
@@ -810,6 +812,7 @@ Video Player Controls
     width: 100%;
     /*required for proper track sizing in FF*/
     top: -14px;
+    display: inline-block;
 }
 .video-component .video-controls input[type=range]:focus {
     outline: none;
