@@ -2,17 +2,49 @@
 $(function () {
     var status = $(".player-status");
 
+    /* video Player variables */
+
+    var videoProgressScrubber = document.getElementById("videoProgressScrubber");
+    var videoProgressFill = document.getElementById("videoProgressFill");
+    var videoPlayPauseBtn = document.getElementById("playPauseBtn");
+    var videoCurrentTime = document.getElementById("videoCurrentTime");
+    var videoDurationTime = document.getElementById("videoDurationTime");
+    var videoVolumeIcon = document.getElementById("videoVolumeIcon");
+    var videoVolumeBtn = document.getElementById("videoVolumeBtn");
+    var videoPlayPauseIcon = document.getElementById("videoPlayPauseIcon");
+    var videoPauseUI = false;
+
+    /* video Player variables end*/
+
+
     var getStatus = function () {
+
+
         $.post(window.location.href, {
             "action": "status"
         }, function (data) {
             data = JSON.parse(data);
             switch (data.status) {
                 case "playing":
+                    if (data.extra.Paused == true) {
+                        if ($(videoPlayPauseIcon).hasClass("glyphicon-pause")) {
+                            $(videoPlayPauseIcon).removeClass("glyphicon-pause").addClass("glyphicon-play");
+                        }
+                    } else {
+                        if ($(videoPlayPauseIcon).hasClass("glyphicon-play")) {
+                            $(videoPlayPauseIcon).removeClass("glyphicon-play").addClass("glyphicon-pause");
+                        }
+                    }
+
                     status.html(t("playing") + ' <span>' + data.path + '</span>');
+                    updateVideoControlsTime(data.extra.Position, data.extra.Duration, data.extra.Volume);
+
                     break;
                 case "stopped":
                     status.html(t("stopped"));
+                    if ($(videoPlayPauseIcon).hasClass()) {
+                        $(videoPlayPauseIcon).removeClass("glyphicon-pause").addClass("glyphicon-play");
+                    }
                     break;
             }
             setTimeout(getStatus, 1500);
@@ -131,4 +163,114 @@ $(function () {
             });
         }
     });
+
+
+    /* video player ui start */
+
+
+    Number.prototype.pad = function (size) {
+        var s = String(this);
+        while (s.length < (size || 2)) {
+            s = "0" + s;
+        }
+        return s;
+    };
+
+    //convert a microsend time into a text formated hh:mm:ss:
+    function formatOMXTime(microSecondTime) {
+        var seconds = Math.floor((microSecondTime / 1000000) % 60).pad();
+        var minutes = Math.floor((microSecondTime / (1000000 * 60)) % 60).pad();
+        var hours = Math.floor((microSecondTime / (1000000 * 60 * 60)) % 24).pad();
+        return hours + ':' + minutes + ':' + seconds;
+    }
+
+    function updateVideoControlsTime(currentTime, duration, volume) {
+        /* so we can drag the ui bar around for seeking we pause the updates while the mouse is down */
+        if (videoPauseUI) {
+            return;
+        }
+        $('#videoComponent').show();
+
+
+        videoProgressFill.style.width = (Math.floor((currentTime / duration) * 100)) + "%";
+
+
+        if ($(videoProgressScrubber).prop('max') != duration) {
+            $(videoProgressScrubber).prop('max', duration);
+            $(videoDurationTime).text(formatOMXTime(duration));
+        }
+
+        videoProgressScrubber.value = Math.floor(currentTime);
+        $(videoCurrentTime).text(formatOMXTime(currentTime));
+
+        if (volume == 0 && $(videoVolumeIcon).hasClass("glyphicon-volume-up")) {
+            $(videoVolumeIcon).removeClass("glyphicon-volume-up").addClass("glyphicon-volume-off");
+        } else if (volume > 0 && $(videoVolumeIcon).hasClass("glyphicon-volume-off")) {
+            $(videoVolumeIcon).removeClass("glyphicon-volume-off").addClass("glyphicon-volume-up");
+        }
+
+
+    }
+
+    videoPlayPauseBtn.addEventListener('click', function (event) {
+        togglePlayPause();
+    }, false);
+
+    videoVolumeBtn.addEventListener('click', function (event) {
+        videoToggleSound();
+    }, false);
+
+    var mouseupType = ((document.ontouchstart !== null) ? 'mouseup' : 'touchend');
+    var mousedownType = ((document.ontouchstart !== null) ? 'mousedown' : 'touchstart');
+
+    videoProgressScrubber.addEventListener(mouseupType, function (event) {
+        console.log(videoProgressScrubber.value);
+
+        $.post(window.location.href, {action: "setposition", value: videoProgressScrubber.value},
+            function (returnedData) {
+                console.log(returnedData);
+            }).fail(function () {
+            console.log("error");
+        });
+
+        videoPauseUI = false;
+        // videoPlayer.currentTime = this.value;
+    }, false);
+
+
+    videoProgressScrubber.addEventListener('input', function (event) {
+        videoPauseUI = true;
+        $(videoCurrentTime).text(formatOMXTime(this.value));
+    }, false);
+
+    videoProgressScrubber.addEventListener(mousedownType, function (event) {
+        videoPauseUI = true;
+        console.log(this.value);
+        //  videoPlayer.currentTime = this.value;
+    }, false);
+
+
+    function togglePlayPause() {
+        $.post(window.location.href, {action: "toggleplay"},
+            function (returnedData) {
+                console.log(returnedData);
+            }).fail(function () {
+            console.log("error");
+        });
+    }
+
+    function videoToggleSound() {
+        var value = 1;
+        if ($(videoVolumeIcon).hasClass("glyphicon-volume-up")) {
+            value = 0;
+        }
+        //flip the value based on the icon
+        $.post(window.location.href, {action: "setvolume", value: value},
+            function (returnedData) {
+                console.log(returnedData);
+            }).fail(function () {
+            console.log("error");
+        });
+    }
+
 });

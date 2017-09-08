@@ -46,6 +46,9 @@ class Index extends View
                     $data["path"] = $activeFile;
                 }
             }
+
+            $data["extra"] = json_decode($this->exec_dbus("getstatus",""));
+
             echo json_encode($data);
             return;
         }
@@ -123,7 +126,41 @@ class Index extends View
             echo json_encode($json);
             return;
         }
+
+        if (post("action") == "setposition") {
+            $data["result"] = $this->exec_dbus("setposition",post("value"));
+            echo json_encode($data);
+            return ;
+        }
+
+        if (post("action") == "setvolume") {
+            $data["result"] = $this->exec_dbus("setvolume",post("value"));
+            echo json_encode($data);
+            return ;
+        }
+        if (post("action") == "toggleplay") {
+            $data["result"] = $this->exec_dbus("toggleplay","");
+            echo json_encode($data);
+            return ;
+        }
+
+
         parent::load();
+    }
+
+    /**
+     * @param $command string dbus command to execute
+     * @param $value integer optional param to send
+     */
+    private function exec_dbus($command, $value) {
+        $output = $return = "";
+        $cmd = escapeshellcmd(dirname(dirname(__DIR__)) . "/dbus.sh $command $value");
+        exec($cmd, $output, $return);
+        if (isset($output) && is_array($output) && count($output) > 0 ) {
+            return $output[0];
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -171,6 +208,23 @@ class Index extends View
             </div>
         </div>
         <div class="note bg-primary"><span class="player-status">-</span></div>
+        <!-- Custom Video Controls -->
+        <div class="video-component" id="videoComponent">
+
+            <div class="video-controls" id="videoControls" dir="ltr" role="group">
+                <div class="video-progress-container">
+                    <div class="video-progress-fill" id="videoProgressFill"></div>
+                    <input type="range" min="0" title="" value="0" id="videoProgressScrubber" />
+                </div>
+                <button title="Play/Pause Video" class="icon-pause" id="playPauseBtn"><span id="videoPlayPauseIcon" class="glyphicon glyphicon-play"></span></button>
+
+                <span class="video-progress-text" id="videoProgressText"><span id="videoCurrentTime">00:00</span> / <span id="videoDurationTime">00:00</span></span>
+                <div class="pull-right video-utilities">
+                    <button  title="Mute/UnMute the video volume" class="icon-volume-high" id="videoVolumeBtn"><span id="videoVolumeIcon" class="glyphicon glyphicon-volume-up"></span></button>
+                </div>
+            </div>
+        </div>
+        <!-- END Custom Video Controls -->
         <div class="input-group spacer">
             <div class="input-group-addon"><img
                         src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"
