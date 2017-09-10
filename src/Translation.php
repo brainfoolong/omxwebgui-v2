@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui;
 
 /**
@@ -44,7 +45,8 @@ class Translation
                 "save" => "Save",
                 "saved" => "Saved",
                 "delete" => "Delete",
-                "stopped" => "Player stopped",
+                "stopped" => "Stopped",
+                "paused" => "Paused",
                 "playing" => "Playing",
                 "playlist" => "Playlist",
                 "keymap.btn" => "Keymap/Controls",
@@ -115,6 +117,7 @@ class Translation
                 "saved" => "Gespeichert",
                 "delete" => "Löschen",
                 "stopped" => "Wiedergabe gestoppt",
+                "paused" => "Pausiert",
                 "playing" => "Spielt",
                 "playlist" => "Wiedergabeliste",
                 "keymap.btn" => "Keymap/Steuerung",

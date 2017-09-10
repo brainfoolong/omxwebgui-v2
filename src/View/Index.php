@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui\View;
 
 use Nullix\Omxwebgui\Data;
@@ -26,27 +27,37 @@ class Index extends View
     public function load()
     {
 
+        if (post("action") == "dbus") {
+            // dbus pipe
+            $output = $return = null;
+            $baseCmd = escapeshellcmd(__DIR__ . "/../../dbus.sh");
+            $cmd = $baseCmd;
+            $cmd .= " " . escapeshellarg(post("command"));
+            if ($param = post("parameter")) {
+                $cmd .= " " . escapeshellarg($param);
+            }
+            exec($cmd, $output, $return);
+            if (isset($output[0])) {
+                $jsonData = ["result" => json_decode($output[0])];
+                if (post("command") !== "status") {
+                    $output = $return = null;
+                    $cmd = $baseCmd . " status";
+                    exec($cmd, $output, $return);
+                    $jsonData["status"] = json_decode($output[0]);
+                } else {
+                    $jsonData["status"] = $jsonData["result"];
+                }
+                echo json_encode($jsonData);
+                return;
+            }
+            echo 0;
+            return;
+        }
+
         if (post("action") == "seen") {
             $path = md5(post("path"));
             $flag = Data::getKey("filesseen", $path);
             Data::setKey("filesseen", $path, !$flag);
-            return;
-        }
-
-        // get player status, is running or not
-        if (post("action") == "status") {
-            $data = array("status" => "stopped");
-            $output = $return = "";
-            exec('sh ' . escapeshellcmd(dirname(dirname(__DIR__))
-                    . "/omx-status.sh"), $output, $return);
-            if ($return) {
-                $data["status"] = "playing";
-                $activeFile = Data::get("active-file");
-                if ($activeFile) {
-                    $data["path"] = $activeFile;
-                }
-            }
-            echo json_encode($data);
             return;
         }
 
@@ -62,14 +73,15 @@ class Index extends View
                 isset($settings["speedfix"]) && $settings["speedfix"] ? "1" : "0",
                 isset($settings["audioout"]) ? $settings["audioout"] : "hdmi",
                 isset($settings["initvol"]) ? $settings["initvol"] * 100 : "0",
-                isset($settings["subtitles_folder"]) && $settings["subtitles_folder"] != "" ? $settings["subtitles_folder"] : "-",
+                isset($settings["subtitles_folder"]) && $settings["subtitles_folder"] != ""
+                    ? $settings["subtitles_folder"] : "-",
                 isset($settings["display"]) && $settings["display"] != "" ? $settings["display"] : "-"
             ];
             foreach ($params as $key => $value) {
                 $params[$key] = escapeshellarg($value);
             }
             $startCmd = escapeshellarg($path) . " " . implode(" ", $params);
-            
+
             switch (post("shortcut")) {
                 case "start":
                     Data::setKey("filesseen", md5($path), true);
@@ -104,8 +116,10 @@ class Index extends View
                 foreach ($folders as $folderData) {
                     $files = array_merge(
                         $files,
-                        $this->getFilesRecursive($folderData["folder"],
-                            (bool)$folderData["recursive"])
+                        $this->getFilesRecursive(
+                            $folderData["folder"],
+                            (bool)$folderData["recursive"]
+                        )
                     );
                 }
             }
@@ -170,7 +184,20 @@ class Index extends View
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="note bg-primary"><span class="player-status">-</span></div>
+        <div class="note bg-primary">
+            <div class="player-source">...</div>
+            <div class="player-controls">
+                <div class="controls">
+                    <img src="<?= View::$rootUrl ?>/images/icons/ic_play_arrow_white_24dp_2x.png" class="control play">
+                    <img src="<?= View::$rootUrl ?>/images/icons/ic_pause_white_24dp_2x.png" class="control pause">
+                </div>
+                <div class="volume"></div>
+                <div class="bar">
+                    <div class="point"></div>
+                </div>
+                <div class="time"></div>
+            </div>
+        </div>
         <div class="input-group spacer">
             <div class="input-group-addon"><img
                         src="<?= View::$rootUrl ?>/images/icons/ic_search_white_24dp_1x.png"
@@ -187,7 +214,6 @@ class Index extends View
      *
      * @param string $path
      * @param bool $recursive
-     *
      * @return array
      */
     private function getFilesRecursive($path, $recursive)
@@ -207,11 +233,12 @@ class Index extends View
                 $filePath = $path . "/" . $file;
                 if (is_dir($filePath)) {
                     if ($recursive) {
-                        $files = array_merge($files,
-                            $this->getFilesRecursive($filePath, $recursive));
+                        $files = array_merge(
+                            $files,
+                            $this->getFilesRecursive($filePath, $recursive)
+                        );
                     }
-                } elseif (preg_match("~(" . $this->fileFormats . ")$~i",
-                    $file)) {
+                } elseif (preg_match("~(" . $this->fileFormats . ")$~i", $file)) {
                     $files[] = $filePath;
                 }
             }

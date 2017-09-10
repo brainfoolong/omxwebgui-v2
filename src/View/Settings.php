@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui\View;
 
 use Nullix\Omxwebgui\Core;
@@ -116,8 +117,7 @@ class Settings extends View
             <form name="updater" method="post" action="">
                 <p>
                     <?php
-                    $lastRelease = Data::getKey("updater",
-                        "github-last-release");
+                    $lastRelease = Data::getKey("updater", "github-last-release");
                     if ($lastRelease
                         && $lastRelease["version"] != Core::$version
                     ) {
@@ -233,7 +233,7 @@ class Settings extends View
                     <option value="hdmi">HDMI</option>
                     <option value="local">Local</option>
                     <option value="both">Both</option>
-					<option value="alsa">ALSA</option>
+                    <option value="alsa">ALSA</option>
                 </select>
             </div>
 
@@ -298,8 +298,8 @@ class Settings extends View
                    class="btn btn-danger">
         </form>
         <script type="text/javascript">
-            owg.folders = <?=json_encode(Data::get("folders"))?>;
-            owg.settings = <?=json_encode(Data::get("settings"))?>;
+          owg.folders = <?=json_encode(Data::get("folders"))?>
+            owg.settings = <?=json_encode(Data::get("settings"))?>
         </script>
         <?php
     }

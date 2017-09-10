@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui;
 
 /**
@@ -26,7 +27,6 @@ class Github
      * Just do an api request to github
      *
      * @param string $url
-     *
      * @return mixed|array
      */
     public static function apiRequest($url)
@@ -40,6 +40,7 @@ class Github
             $apiData = json_decode($apiData, true);
             return $apiData;
         }
+        return null;
     }
 
     /**

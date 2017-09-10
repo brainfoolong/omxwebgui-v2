@@ -51,3 +51,8 @@ Add the following line to crontab with `crontab -e` to start the simple php webs
 
 ## Troubleshooting
 * If you have troubles with write permissions just give the `data` and `tmp` folder the 777 permission.
+* Error `Must have DBUS_SESSION_BUS_ADDRESS` or `Error org.freedesktop.DBus.Error.NoReply`. You need to upgrade your omxplayer -> http://omxplayer.sconde.net/
+
+## Developers
+* PHP coding standard PSR1/PSR2: http://www.php-fig.org/psr/psr-2/
+* Javascript standardjs: https://standardjs.com/

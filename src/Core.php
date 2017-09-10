@@ -9,7 +9,6 @@ namespace {
      * Get a post value
      *
      * @param string $key
-     *
      * @return mixed
      */
     function post($key)
@@ -21,7 +20,6 @@ namespace {
      * Get a get value
      *
      * @param string $key
-     *
      * @return mixed
      */
     function get($key)
@@ -33,8 +31,7 @@ namespace {
      * Get a translation key
      *
      * @param string $key
-     * @param mixed  $parameters Parameters to replace
-     *
+     * @param mixed $parameters Parameters to replace
      * @return mixed
      */
     function t($key, $parameters = null)
@@ -78,7 +75,7 @@ namespace Nullix\Omxwebgui {
          *
          * @var string
          */
-        public static $version = "0.11.0";
+        public static $version = "0.12.0";
 
         /**
          * Initialize

@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui;
 
 /**
@@ -21,28 +22,28 @@ class Omx
      * @var mixed
      */
     public static $hotkeys
-        = array(
-            "q" => array("key" => "81"),
-            "p" => array("key" => "80"),
-            "-" => array("key" => "189,109"),
-            "+" => array("key" => "187,107"),
-            "left" => array("key" => "37", "shortcut" => "\x1b\x5b\x44"),
-            "right" => array("key" => "39", "shortcut" => "\x1b\x5b\x43"),
-            "down" => array("key" => "40", "shortcut" => "\x1b\x5b\x42"),
-            "up" => array("key" => "38", "shortcut" => "\x1b\x5b\x41"),
-            "z" => array("key" => "90"),
-            "1" => array("key" => "50,98"),
-            "2" => array("key" => "49,57"),
-            "j" => array("key" => "74"),
-            "k" => array("key" => "75"),
-            "i" => array("key" => "73"),
-            "o" => array("key" => "79"),
-            "n" => array("key" => "78"),
-            "m" => array("key" => "77"),
-            "s" => array("key" => "83"),
-            "d" => array("key" => "68"),
-            "f" => array("key" => "70")
-        );
+        = [
+            "q" => ["key" => "81"],
+            "p" => ["key" => "80"],
+            "-" => ["key" => "189,109"],
+            "+" => ["key" => "187,107"],
+            "left" => ["key" => "37", "shortcut" => "\x1b\x5b\x44"],
+            "right" => ["key" => "39", "shortcut" => "\x1b\x5b\x43"],
+            "down" => ["key" => "40", "shortcut" => "\x1b\x5b\x42"],
+            "up" => ["key" => "38", "shortcut" => "\x1b\x5b\x41"],
+            "z" => ["key" => "90"],
+            "1" => ["key" => "50,98"],
+            "2" => ["key" => "49,57"],
+            "j" => ["key" => "74"],
+            "k" => ["key" => "75"],
+            "i" => ["key" => "73"],
+            "o" => ["key" => "79"],
+            "n" => ["key" => "78"],
+            "m" => ["key" => "77"],
+            "s" => ["key" => "83"],
+            "d" => ["key" => "68"],
+            "f" => ["key" => "70"]
+        ];
 
     /**
      * Send commands to omxplayer

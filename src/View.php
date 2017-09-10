@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui;
 
 /**
@@ -19,7 +20,6 @@ abstract class View
      * Generate a link to the given view
      *
      * @param string $view
-     *
      * @return string
      */
     public static function link($view)
@@ -59,15 +59,15 @@ abstract class View
             ?>
             <title>Omx Web Gui by BrainFooLong</title>
             <script type="text/javascript">
-                owg.translations = <?=json_encode(Translation::$values)?>;
-                owg.language = '<?=Data::getKey("settings", "language")?>';
-                if (owg.language == '') {
-                    owg.language = "en";
-                }
-                owg.rootUrl = '<?=View::$rootUrl?>';
-                owg.folders = <?=json_encode(Data::get("folders"))?>;
-                owg.settings = <?=json_encode(Data::get("settings"))?>;
-                owg.version = '<?=Core::$version?>';
+              owg.translations = <?=json_encode(Translation::$values) . ";"?>
+                owg.language = '<?=Data::getKey("settings", "language")?>'
+              if (owg.language === '') {
+                owg.language = 'en'
+              }
+              owg.rootUrl = '<?=View::$rootUrl?>'
+              owg.folders = <?=json_encode(Data::get("folders")) . ";"?>
+              owg.settings = <?=json_encode(Data::get("settings")) . ";"?>
+              owg.version = '<?=Core::$version?>'
             </script>
         </head>
         <body>
@@ -122,8 +122,8 @@ abstract class View
                                 <?= $this->getContent() ?>
                             </div>
                             <script type="text/javascript">
-                                spinner(".spinner-container");
-                                $(".page-content").addClass("hidden");
+                              spinner('.spinner-container')
+                              $('.page-content').addClass('hidden')
                             </script>
                         </div>
                     </div>

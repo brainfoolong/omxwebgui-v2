@@ -1,4 +1,5 @@
 <?php
+
 use Nullix\Omxwebgui\Core;
 use Nullix\Omxwebgui\View;
 

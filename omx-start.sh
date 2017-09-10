@@ -1,3 +1,4 @@
+#!/bin/bash
 ## script to start omxplayer
 
 # check if player is already running

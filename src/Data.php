@@ -1,4 +1,5 @@
 <?php
+
 namespace Nullix\Omxwebgui;
 
 /**
@@ -20,8 +21,7 @@ class Data
      *
      * @param string $file
      * @param string $key
-     *
-     * @return mixed
+     * @return mixed|null
      */
     public static function getKey($file, $key)
     {
@@ -29,6 +29,7 @@ class Data
         if (is_array($data) && isset($data[$key])) {
             return $data[$key];
         }
+        return null;
     }
 
     /**
@@ -36,7 +37,7 @@ class Data
      *
      * @param string $file
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     public static function setKey($file, $key, $value)
     {
@@ -49,7 +50,6 @@ class Data
      * Read a data file from disk
      *
      * @param string $file
-     *
      * @return mixed
      */
     public static function get($file)
@@ -68,8 +68,7 @@ class Data
      * Write a data file to disk
      *
      * @param string $file
-     * @param mixed  $value Any value to store in the file
-     *
+     * @param mixed $value Any value to store in the file
      * @throws \Exception
      */
     public static function set($file, $value)

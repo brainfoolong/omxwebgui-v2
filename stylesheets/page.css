@@ -18,7 +18,6 @@ html {
 /*           Wrappers            */
 /*-------------------------------*/
 
-
 #sidebar-wrapper {
     z-index: 1000;
     left: 220px;
@@ -44,7 +43,7 @@ html {
 
 #page-content-wrapper {
     width: 100%;
-    left:0;
+    left: 0;
     -webkit-transition: all .2s ease;
     -moz-transition: all .2s ease;
     -o-transition: all .2s ease;
@@ -200,8 +199,8 @@ html {
     transition: all .2s ease;
 }
 
-#wrapper.toggled .hamburger{
-    margin-left:230px;
+#wrapper.toggled .hamburger {
+    margin-left: 230px;
 }
 
 .hamburger:hover,
@@ -423,91 +422,143 @@ h1 {
 
 .filelist .file {
     margin-bottom: 1px;
-    border-radius:3px;
+    border-radius: 3px;
     font-size: 85%;
-    padding:8px;
+    padding: 8px;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.filelist .file:hover{
-    background: rgba(255,255,255, 0.1);
+.filelist .file:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .filelist .file .dir,
-.filelist .file .filename{
+.filelist .file .filename {
     padding-left: 45px;
 }
 
-.filelist .file .dir{
+.filelist .file .dir {
     color: #7d7d7d;
     font-size: 95%;
 }
 
-.filelist .file.hidefolder .dir{
+.filelist .file.hidefolder .dir {
     display: none;
 }
 
-.filelist .file .match{
+.filelist .file .match {
     background: white;
-    color:#2ac7d2;
-    border-radius:3px;
+    color: #2ac7d2;
+    border-radius: 3px;
 }
 
-.filelist .file img{
-    width:32px;
-    position:absolute;
+.filelist .file img {
+    width: 32px;
+    position: absolute;
 }
 
-.filelist .file.hidefolder img{
-    width:16px;
+.filelist .file.hidefolder img {
+    width: 16px;
 }
 
-.filelist .file.seen-false img{
-    opacity:0.3;
+.filelist .file.seen-false img {
+    opacity: 0.3;
 }
 
-.keymap .buttons{
-    padding:10px;
+.keymap .buttons {
+    padding: 10px;
 }
 
-.keymap .buttons .btn{
+.keymap .buttons .btn {
     white-space: nowrap;
 }
 
-.keymap .buttons .btn .shortcut{
+.keymap .buttons .btn .shortcut {
     font-weight: bold;
 
 }
 
-.keymap .buttons .btn .info{
+.keymap .buttons .btn .info {
     font-size: 85%;
 }
 
-.top-logo{
+.top-logo {
     white-space: nowrap;
     font-size: 85%;
     position: absolute;
-    right:15px;
-    top:20px;
+    right: 15px;
+    top: 20px;
 }
 
-.top-logo a.github{
+.top-logo a.github {
     display: inline-block;
     background: black;
-    border-radius:5px;
-    padding:5px;
-    opacity:0.4;
+    border-radius: 5px;
+    padding: 5px;
+    opacity: 0.4;
 }
 
-.top-logo a.github:hover{
-    opacity:1;
+.top-logo a.github:hover {
+    opacity: 1;
 }
 
-.top-logo a.update{
+.top-logo a.update {
     display: inline-block;
-    border-radius:5px;
-    padding:5px;
+    border-radius: 5px;
+    padding: 5px;
     background: #62c462;
+}
+
+.player-controls {
+    position: relative;
+    height: 30px;
+    margin-top: 10px;
+    display: none;
+    margin-bottom: 15px;
+}
+
+.player-controls .time {
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    font-size: 80%;
+}
+
+.player-controls .bar {
+    position: absolute;
+    left: 7%;
+    width: 93%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    top: 0;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.player-controls .bar .point {
+    width: 10px;
+    height: 20px;
+    border-radius: 10px;
+    background: white;
+    position: absolute;
+}
+
+.player-controls .controls {
+    width: 10%;
+    white-space: nowrap;
+    position: absolute;
+    top: -5px;
+}
+
+.player-controls .controls .control {
+    width: 40%;
+    cursor: pointer;
+    transition: 0.2s;
+    opacity: 0.8;
+}
+
+.player-controls .controls .control {
+    opacity: 1;
 }
