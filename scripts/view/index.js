@@ -19,14 +19,12 @@ $(function () {
       'parameter': parameter
     }, function (data) {
       data = JSON.parse(data)
-      if (data) {
-        lastStatusData = data.status
-        parseStatus(data.status)
-        statusTo = setTimeout(function () {
-          dbusCmd('status')
-        }, 1000)
-      }
+      lastStatusData = data.status
+      parseStatus(data.status)
       if (callback) callback(data)
+      statusTo = setTimeout(function () {
+        dbusCmd('status')
+      }, 1000)
     })
   }
 
@@ -35,7 +33,7 @@ $(function () {
   }
 
   var parseStatus = function (statusData) {
-    if (statusData === 0 || statusData.status === 'stopped') {
+    if (!statusData || statusData === 0 || statusData.status === 'stopped') {
       source.html(t('stopped'))
       controls.hide()
     } else {
