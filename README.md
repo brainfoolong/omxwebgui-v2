@@ -44,7 +44,7 @@ Set correct chmod for the scripts with
 
 Create a php webserver listening on port 4321, you can change the port to whatever you want. Start this with the same user that you need to play the videos. Please do not use apache or other server's to run the php script, it will probably not work.
 
-`php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &`
+    php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &
 
 Open the webpage with http://IPTOYOURPI:4321
 
@@ -52,7 +52,7 @@ Open the webpage with http://IPTOYOURPI:4321
 To enable autostart on reboot just add the following line to your crontab. Do this with the same user that you need to play the videos. No `sudo` required.
 Add the following line to crontab with `crontab -e` to start the simple php webserver on reboot
 
-`@reboot php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &`
+    @reboot php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &
 
 ## Troubleshooting
 * If you have troubles with write permissions just give the `data` and `tmp` folder the 777 permission.
