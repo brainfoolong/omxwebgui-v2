@@ -37,7 +37,12 @@ sudo apt-get install php5-mbstring
 ```
 
 ## Installation
-Download/Clone/Unpack the whole script to a folder you like. Create a php webserver listening on port 4321, you can change the port to whatever you want. Start this with the same user that you need to play the videos. Please do not use apache or other server's to run the php script, it will probably not work.
+Download/Clone/Unpack the whole script to a folder you like. 
+Set correct chmod for the scripts with
+
+    chmod 0744 *.sh
+
+Create a php webserver listening on port 4321, you can change the port to whatever you want. Start this with the same user that you need to play the videos. Please do not use apache or other server's to run the php script, it will probably not work.
 
 `php -S 0.0.0.0:4321 -t YOURPATHTOOMXWEBGUIFOLDER > /dev/null 2>&1 &`
 
