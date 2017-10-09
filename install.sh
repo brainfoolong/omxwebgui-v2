@@ -75,7 +75,7 @@ mkdir "$path/tmp"
 cd $path
 wget https://raw.githubusercontent.com/brainfoolong/omxwebgui-v2/master/updater.php
 php -f updater.php
-chmod 0744 *.sh
+chmod +x *.sh
 
 echo ""
 echo "==========================================="
