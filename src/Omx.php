@@ -53,6 +53,9 @@ class Omx
      */
     public static function sendCommand($omxcmd, $method)
     {
+        if (stripos($omxcmd, "youtube.com/") !== false) {
+            $method = "youtube";
+
         $script = dirname(__DIR__) . "/omx-{$method}.sh";
         $cmd = "timeout 5 sh " . escapeshellarg($script) . " "
             . escapeshellarg(self::$fifoFile) . " " . $omxcmd
