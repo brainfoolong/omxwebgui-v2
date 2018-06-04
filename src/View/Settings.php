@@ -281,6 +281,7 @@ class Settings extends View
                 <select class="selectpicker" name="setting[language]">
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
+                    <option value="fr">Français</option>
                 </select>
             </div>
             <input type="submit" value="<?= t("save") ?>" name="save"
