@@ -1,3 +1,6 @@
+### Project discontinued
+Because of lack of time, i must discontinue this project. It will stay online, it will probably work out of the box. Maybe someone can take over development for this project?! Feel free to fork it.
+
 # Web GUI for OMX Player on a Raspberry Pi
 This web GUI give you easy control of your OMX player, directly via your browser. Start your video and audio files directly with your smartphone, tablet or desktop browser. This GUI is the successor to the first, simpler version of omxwebgui at https://github.com/brainfoolong/omxwebgui/.
 
